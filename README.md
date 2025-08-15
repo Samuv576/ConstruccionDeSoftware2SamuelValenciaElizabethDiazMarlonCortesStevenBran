@@ -1,4 +1,4 @@
-# ConstruccionDeSoftware2SamuelValenciaElizabethDiazMarlonCortesStevenBran
+# ConstSof2SamuelValenciaElizabethDiazMarlonCortesStevenBran
 
 # Integrantes
 
