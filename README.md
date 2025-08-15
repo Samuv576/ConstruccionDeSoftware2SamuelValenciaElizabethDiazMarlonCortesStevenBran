@@ -1,2 +1,11 @@
 # ConstruccionDeSoftware2SamuelValenciaElizabethDiazMarlonCortesStevenBran
-Grupo construcción de software enfocado a un aplicativo para un hospital.
+
+# Integrantes
+
+### Marlon Alexis Cortes Cardona
+### Steven Bran Martínez
+### Elizabeth Diaz Cordoba
+### Samuel Valencia Buitrago
+
+# Tecnologías
+### Java Springboot
