@@ -48,7 +48,7 @@ public class VitalSignsService {
         vitalSignsPort.delete(existing);
     }
 
-    private void validateSigns(VitalSigns signs) throws Exception {
+    public void validateSigns(VitalSigns signs) throws Exception {
         if (signs.getBloodPressure() <= 0 || signs.getBloodPressure() > 300) {
             throw new Exception("La presión arterial debe estar en un rango clínico válido");
         }
