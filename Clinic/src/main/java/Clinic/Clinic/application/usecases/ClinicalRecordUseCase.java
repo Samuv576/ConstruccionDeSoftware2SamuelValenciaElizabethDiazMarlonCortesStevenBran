@@ -13,11 +13,11 @@ public class ClinicalRecordUseCase {
         this.clinicalRecordService = clinicalRecordService;
     }
 
-    public void createRecord(ClinicalRecord record, String patientDocument) throws Exception {
+    public void createClinicalRecord(ClinicalRecord record, String patientDocument) throws Exception {
         clinicalRecordService.create(record, patientDocument);
     }
 
-    public ClinicalRecord findByPatient(String patientDocument) throws Exception {
+    public ClinicalRecord findClinicalRecord(String patientDocument) throws Exception {
         return clinicalRecordService.findByPatient(patientDocument);
     }
 
@@ -25,7 +25,7 @@ public class ClinicalRecordUseCase {
         clinicalRecordService.updateVitalSigns(patientDocument, signs);
     }
 
-    public void attachOrder(String patientDocument, ClinicalOrder order) throws Exception {
+    public void attachClinicalOrder(String patientDocument, ClinicalOrder order) throws Exception {
         clinicalRecordService.attachOrder(patientDocument, order);
     }
 }

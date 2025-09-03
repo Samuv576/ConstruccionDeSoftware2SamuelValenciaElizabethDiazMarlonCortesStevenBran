@@ -33,7 +33,6 @@ public class MedicalNoteService {
 
 
     public MedicalNote findByPatient(long patientId) throws Exception {
-        // Simulación: se usa un objeto temporal para buscar por ID
         MedicalNote temp = new MedicalNote();
         Patient patient = new Patient();
         patient.setId(patientId);

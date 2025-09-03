@@ -14,4 +14,16 @@ public class PatientUseCase {
     public void createPatient(Patient patient) throws Exception {
         patientService.create(patient);
     }
+
+    public Patient findPatientByDocument(String document) throws Exception {
+        return patientService.findByDocument(document);
+    }
+
+    public void updatePatientContactInfo(Patient patient) throws Exception {
+        patientService.updateContactInfo(patient);
+    }
+
+    public void deletePatient(Patient patient) throws Exception {
+        patientService.delete(patient);
+    }
 }

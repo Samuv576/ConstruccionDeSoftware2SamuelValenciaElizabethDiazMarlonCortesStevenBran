@@ -11,19 +11,19 @@ public class EmergencyContactUseCase {
         this.emergencyContactService = emergencyContactService;
     }
 
-    public void createContact(EmergencyContact contact, String patientDocument) throws Exception {
+    public void createEmergencyContact(EmergencyContact contact, String patientDocument) throws Exception {
         emergencyContactService.create(contact, patientDocument);
     }
 
-    public void updateContact(EmergencyContact contact, String patientDocument) throws Exception {
+    public void updateEmergencyContact(EmergencyContact contact, String patientDocument) throws Exception {
         emergencyContactService.update(contact, patientDocument);
     }
 
-    public EmergencyContact findContactByPatient(String patientDocument) throws Exception {
+    public EmergencyContact findEmergencyContact(String patientDocument) throws Exception {
         return emergencyContactService.findByPatient(patientDocument);
     }
 
-    public void deleteContact(String patientDocument) throws Exception {
+    public void deleteEmergencyContact(String patientDocument) throws Exception {
         emergencyContactService.delete(patientDocument);
     }
 }

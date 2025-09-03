@@ -3,6 +3,7 @@ package Clinic.Clinic.domain.services;
 import Clinic.Clinic.domain.model.InventoryItem;
 import Clinic.Clinic.domain.ports.InventoryItemPort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryItemService {
@@ -35,7 +36,6 @@ public class InventoryItemService {
         inventoryItemPort.save(item);
     }
 
-    
     public List<InventoryItem> findByType(String type) throws Exception {
         throw new UnsupportedOperationException("findByType debe ser implementado en el adaptador");
     }
