@@ -18,6 +18,12 @@ public class UserService {
 	}
 
 	public void create(User userToCreate, User creator) throws Exception {
+		if (userPort.isEmpty()) {
+			validateUserData(userToCreate);
+			userPort.save(userToCreate);
+			return;
+		}
+
 		if (creator.getRole() != Role.ADMIN) {
 			throw new Exception("Solo un administrador puede crear usuarios");
 		}
@@ -36,7 +42,6 @@ public class UserService {
 
 		userPort.save(userToCreate);
 	}
-
 
 	public void delete(User user) throws Exception {
 		User existing = userPort.findByDocument(user);
@@ -126,4 +131,11 @@ public class UserService {
 	private int calculateAge(LocalDate birthDate) {
 		return Period.between(birthDate, LocalDate.now()).getYears();
 	}
+	// ... (todo igual hasta el final de la clase)
+
+	// ✅ Nuevo método para exponer isEmpty desde el puerto
+	public boolean isEmpty() {
+		return userPort.isEmpty();
+	}
+
 }

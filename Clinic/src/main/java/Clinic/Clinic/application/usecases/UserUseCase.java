@@ -37,4 +37,9 @@ public class UserUseCase {
     public void assignUserRole(User user, Role role) throws Exception {
         userService.assignRole(user, role);
     }
+
+    // ✅ Nuevo método para saber si la base está vacía
+    public boolean isEmpty() {
+        return userService.isEmpty();
+    }
 }

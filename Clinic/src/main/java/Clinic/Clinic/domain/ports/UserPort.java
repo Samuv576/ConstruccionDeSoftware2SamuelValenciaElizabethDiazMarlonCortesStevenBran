@@ -7,4 +7,5 @@ public interface UserPort {
     User findByUserName(User user) throws Exception;
     void save(User user) throws Exception;
     void delete(User user) throws Exception;
+    boolean isEmpty();
 }
