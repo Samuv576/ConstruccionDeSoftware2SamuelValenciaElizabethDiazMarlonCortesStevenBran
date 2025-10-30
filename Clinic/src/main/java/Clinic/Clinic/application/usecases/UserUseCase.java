@@ -3,7 +3,9 @@ package Clinic.Clinic.application.usecases;
 import Clinic.Clinic.domain.model.User;
 import Clinic.Clinic.domain.model.enums.Role;
 import Clinic.Clinic.domain.services.UserService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserUseCase {
 
     private final UserService userService;
@@ -12,8 +14,8 @@ public class UserUseCase {
         this.userService = userService;
     }
 
-    public void createUser(User user) throws Exception {
-        userService.create(user);
+    public void createUser(User userToCreate, User creator) throws Exception {
+        userService.create(userToCreate, creator);
     }
 
     public void deleteUser(User user) throws Exception {

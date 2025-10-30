@@ -4,9 +4,11 @@ import Clinic.Clinic.adapter.in.builder.UserBuilder;
 import Clinic.Clinic.application.usecases.UserUseCase;
 import Clinic.Clinic.domain.model.User;
 import Clinic.Clinic.domain.model.enums.Role;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class UserClient {
 
     private final UserBuilder builder;
@@ -32,6 +34,10 @@ public class UserClient {
         try {
             switch (option) {
                 case "1" -> {
+                    System.out.print("Documento del creador: ");
+                    String creatorDoc = scanner.nextLine();
+                    User creator = useCase.findUserByDocument(creatorDoc);
+
                     System.out.print("ID: ");
                     String id = scanner.nextLine();
                     System.out.print("Username: ");
@@ -45,8 +51,8 @@ public class UserClient {
                     System.out.print("Fecha de nacimiento (yyyy-MM-dd): ");
                     String dob = scanner.nextLine();
 
-                    User user = builder.build(id, username, password, email, role, dob);
-                    useCase.createUser(user);
+                    User userToCreate = builder.build(id, username, password, email, role, dob);
+                    useCase.createUser(userToCreate, creator);
                     System.out.println("✅ Usuario creado exitosamente.");
                 }
 
