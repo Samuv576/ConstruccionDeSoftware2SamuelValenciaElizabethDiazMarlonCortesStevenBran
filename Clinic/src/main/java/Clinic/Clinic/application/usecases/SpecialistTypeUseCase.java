@@ -4,6 +4,9 @@ import Clinic.Clinic.domain.model.SpecialistType;
 import Clinic.Clinic.domain.services.SpecialistTypeService;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class SpecialistTypeUseCase {
 

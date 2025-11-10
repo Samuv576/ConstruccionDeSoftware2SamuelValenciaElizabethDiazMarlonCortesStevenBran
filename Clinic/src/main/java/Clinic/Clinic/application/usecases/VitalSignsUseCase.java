@@ -2,7 +2,9 @@ package Clinic.Clinic.application.usecases;
 
 import Clinic.Clinic.domain.model.VitalSigns;
 import Clinic.Clinic.domain.services.VitalSignsService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class VitalSignsUseCase {
 
     private final VitalSignsService vitalSignsService;

@@ -131,9 +131,7 @@ public class UserService {
 	private int calculateAge(LocalDate birthDate) {
 		return Period.between(birthDate, LocalDate.now()).getYears();
 	}
-	// ... (todo igual hasta el final de la clase)
 
-	// ✅ Nuevo método para exponer isEmpty desde el puerto
 	public boolean isEmpty() {
 		return userPort.isEmpty();
 	}

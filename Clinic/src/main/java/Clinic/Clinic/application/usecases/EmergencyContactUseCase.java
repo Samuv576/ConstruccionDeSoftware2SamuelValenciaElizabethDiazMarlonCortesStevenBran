@@ -2,6 +2,9 @@ package Clinic.Clinic.application.usecases;
 
 import Clinic.Clinic.domain.model.EmergencyContact;
 import Clinic.Clinic.domain.services.EmergencyContactService;
+import org.springframework.stereotype.Component;
+
+@Component 
 
 public class EmergencyContactUseCase {
 

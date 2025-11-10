@@ -6,6 +6,9 @@ import Clinic.Clinic.domain.services.MedicalHistoryService;
 
 import java.time.LocalDate;
 import java.util.Map;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class MedicalHistoryUseCase {
 

@@ -3,79 +3,76 @@ package Clinic.Clinic.domain.services;
 import Clinic.Clinic.domain.model.ClinicalOrder;
 import Clinic.Clinic.domain.model.OrderItem;
 import Clinic.Clinic.domain.ports.ClinicalOrderPort;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClinicalOrderService {
 
-    private final ClinicalOrderPort clinicalOrderPort;
+	private final ClinicalOrderPort clinicalOrderPort;
 
-    public ClinicalOrderService(ClinicalOrderPort clinicalOrderPort) {
-        this.clinicalOrderPort = clinicalOrderPort;
-    }
+	public ClinicalOrderService(ClinicalOrderPort clinicalOrderPort) {
+		this.clinicalOrderPort = clinicalOrderPort;
+	}
 
+	public void create(ClinicalOrder order) throws Exception {
+		ClinicalOrder existing = clinicalOrderPort.findById(order.getOrderNumber());
+		if (existing != null) {
+			throw new Exception("Ya existe una orden con ese número");
+		}
 
-    public void create(ClinicalOrder order) throws Exception {
-        ClinicalOrder existing = clinicalOrderPort.findById(order.getOrderNumber());
-        if (existing != null) {
-            throw new Exception("Ya existe una orden con ese número");
-        }
+		if (order.getItems() == null || order.getItems().isEmpty()) {
+			throw new Exception("La orden debe contener al menos un ítem");
+		}
 
-        if (order.getItems() == null || order.getItems().isEmpty()) {
-            throw new Exception("La orden debe contener al menos un ítem");
-        }
+		clinicalOrderPort.save(order);
+	}
 
-        clinicalOrderPort.save(order);
-    }
+	public void addItem(String orderNumber, OrderItem item) throws Exception {
+		ClinicalOrder order = clinicalOrderPort.findById(orderNumber);
+		if (order == null) {
+			throw new Exception("No se encontró la orden clínica");
+		}
 
+		boolean duplicate = order.getItems().stream()
+				.anyMatch(existing -> existing.getItemNumber().equals(item.getItemNumber()));
 
-    public void addItem(String orderNumber, OrderItem item) throws Exception {
-        ClinicalOrder order = clinicalOrderPort.findById(orderNumber);
-        if (order == null) {
-            throw new Exception("No se encontró la orden clínica");
-        }
+		if (duplicate) {
+			throw new Exception("Ya existe un ítem con ese número en la orden");
+		}
 
-        boolean duplicate = order.getItems().stream()
-            .anyMatch(existing -> existing.getItemNumber().equals(item.getItemNumber()));
+		order.getItems().add(item);
+		clinicalOrderPort.save(order);
+	}
 
-        if (duplicate) {
-            throw new Exception("Ya existe un ítem con ese número en la orden");
-        }
+	public void removeItem(String orderNumber, String itemNumber) throws Exception {
+		ClinicalOrder order = clinicalOrderPort.findById(orderNumber);
+		if (order == null) {
+			throw new Exception("No se encontró la orden clínica");
+		}
 
-        order.getItems().add(item);
-        clinicalOrderPort.save(order);
-    }
+		boolean removed = order.getItems().removeIf(item -> item.getItemNumber().equals(itemNumber));
+		if (!removed) {
+			throw new Exception("No se encontró el ítem en la orden");
+		}
 
+		clinicalOrderPort.save(order);
+	}
 
-    public void removeItem(String orderNumber, String itemNumber) throws Exception {
-        ClinicalOrder order = clinicalOrderPort.findById(orderNumber);
-        if (order == null) {
-            throw new Exception("No se encontró la orden clínica");
-        }
+	public void validateOrder(ClinicalOrder order) throws Exception {
+		if (order.getItems() == null || order.getItems().isEmpty()) {
+			throw new Exception("La orden debe tener al menos un ítem");
+		}
 
-        boolean removed = order.getItems().removeIf(item -> item.getItemNumber().equals(itemNumber));
-        if (!removed) {
-            throw new Exception("No se encontró el ítem en la orden");
-        }
+		for (OrderItem item : order.getItems()) {
+			if (item.getItemNumber() == null || item.getItemNumber().isEmpty()) {
+				throw new Exception("Cada ítem debe tener un número válido");
+			}
+		}
+	}
 
-        clinicalOrderPort.save(order);
-    }
+	public void finalizeOrder(ClinicalOrder order) throws Exception {
+		validateOrder(order);
 
-
-    public void validateOrder(ClinicalOrder order) throws Exception {
-        if (order.getItems() == null || order.getItems().isEmpty()) {
-            throw new Exception("La orden debe tener al menos un ítem");
-        }
-
-        for (OrderItem item : order.getItems()) {
-            if (item.getItemNumber() == null || item.getItemNumber().isEmpty()) {
-                throw new Exception("Cada ítem debe tener un número válido");
-            }
-        }
-    }
-
-
-    public void finalizeOrder(ClinicalOrder order) throws Exception {
-        validateOrder(order);
-
-        clinicalOrderPort.save(order);
-    }
+		clinicalOrderPort.save(order);
+	}
 }

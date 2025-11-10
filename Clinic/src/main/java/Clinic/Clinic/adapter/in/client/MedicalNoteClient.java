@@ -5,6 +5,9 @@ import Clinic.Clinic.application.usecases.MedicalNoteUseCase;
 import Clinic.Clinic.domain.model.MedicalNote;
 
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class MedicalNoteClient {
 
@@ -35,7 +38,7 @@ public class MedicalNoteClient {
                     String doctorId = scanner.nextLine();
                     System.out.print("Contenido de la nota: ");
                     String content = scanner.nextLine();
-                    System.out.print("Fecha y hora (yyyy-MM-ddTHH:mm): ");
+                    System.out.print("Fecha y hora (yyyy-MM-dd HH:mm): ");
                     String dateTime = scanner.nextLine();
 
                     MedicalNote note = builder.build(patientId, doctorId, content, dateTime);

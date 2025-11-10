@@ -5,6 +5,9 @@ import Clinic.Clinic.domain.model.Patient;
 import Clinic.Clinic.domain.ports.MedicalNotePort;
 
 import java.time.LocalDateTime;
+import org.springframework.stereotype.Service;
+
+@Service
 
 public class MedicalNoteService {
 

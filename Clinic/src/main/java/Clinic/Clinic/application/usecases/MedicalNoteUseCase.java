@@ -2,6 +2,9 @@ package Clinic.Clinic.application.usecases;
 
 import Clinic.Clinic.domain.model.MedicalNote;
 import Clinic.Clinic.domain.services.MedicalNoteService;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class MedicalNoteUseCase {
 

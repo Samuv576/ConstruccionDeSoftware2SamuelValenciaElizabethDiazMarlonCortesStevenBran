@@ -3,6 +3,9 @@ package Clinic.Clinic.application.usecases;
 import Clinic.Clinic.domain.model.ClinicalOrder;
 import Clinic.Clinic.domain.model.OrderItem;
 import Clinic.Clinic.domain.services.ClinicalOrderService;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class ClinicalOrderUseCase {
 

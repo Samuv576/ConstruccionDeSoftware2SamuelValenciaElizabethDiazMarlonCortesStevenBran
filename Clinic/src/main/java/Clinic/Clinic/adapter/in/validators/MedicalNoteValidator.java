@@ -3,6 +3,7 @@ package Clinic.Clinic.adapter.in.validators;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class MedicalNoteValidator extends SimpleValidator {
@@ -21,10 +22,10 @@ public class MedicalNoteValidator extends SimpleValidator {
 
     public LocalDateTime validateDateTime(String value) throws Exception {
         try {
-            LocalDateTime dateTime = LocalDateTime.parse(value);
-            return dateTime;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return LocalDateTime.parse(value, formatter);
         } catch (Exception e) {
-            throw new Exception("La fecha ingresada no tiene un formato válido (yyyy-MM-ddTHH:mm)");
+            throw new Exception("La fecha ingresada no tiene un formato válido (yyyy-MM-dd HH:mm)");
         }
     }
 }

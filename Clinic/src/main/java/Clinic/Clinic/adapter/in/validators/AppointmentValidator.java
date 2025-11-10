@@ -3,19 +3,21 @@ package Clinic.Clinic.adapter.in.validators;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class AppointmentValidator extends SimpleValidator {
 
     public LocalDateTime validateDateTime(String value) throws Exception {
         try {
-            LocalDateTime dateTime = LocalDateTime.parse(value);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(value.trim(), formatter);
             if (dateTime.isBefore(LocalDateTime.now())) {
                 throw new Exception("La fecha de la cita debe ser futura");
             }
             return dateTime;
         } catch (Exception e) {
-            throw new Exception("La fecha ingresada no tiene un formato válido (yyyy-MM-ddTHH:mm)");
+            throw new Exception("La fecha ingresada no tiene un formato válido (yyyy-MM-dd HH:mm)");
         }
     }
 

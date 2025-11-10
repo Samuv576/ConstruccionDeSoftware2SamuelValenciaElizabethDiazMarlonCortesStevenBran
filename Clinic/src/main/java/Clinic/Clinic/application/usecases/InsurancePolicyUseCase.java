@@ -2,6 +2,9 @@ package Clinic.Clinic.application.usecases;
 
 import Clinic.Clinic.domain.model.InsurancePolicy;
 import Clinic.Clinic.domain.services.InsurancePolicyService;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class InsurancePolicyUseCase {
 

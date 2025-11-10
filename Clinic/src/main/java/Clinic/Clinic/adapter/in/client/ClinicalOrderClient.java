@@ -4,11 +4,14 @@ import Clinic.Clinic.adapter.in.builder.ClinicalOrderBuilder;
 import Clinic.Clinic.application.usecases.ClinicalOrderUseCase;
 import Clinic.Clinic.domain.model.ClinicalOrder;
 import Clinic.Clinic.domain.model.OrderItem;
+import org.springframework.stereotype.Component;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+@Component
 public class ClinicalOrderClient {
 
     private final ClinicalOrderBuilder builder;

@@ -2,6 +2,9 @@ package Clinic.Clinic.domain.services;
 
 import Clinic.Clinic.domain.model.EmergencyContact;
 import Clinic.Clinic.domain.ports.EmergencyContactPort;
+import org.springframework.stereotype.Service;
+
+@Service 
 
 public class EmergencyContactService {
 

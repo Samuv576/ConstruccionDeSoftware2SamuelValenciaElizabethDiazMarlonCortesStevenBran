@@ -5,7 +5,9 @@ import Clinic.Clinic.application.usecases.VitalSignsUseCase;
 import Clinic.Clinic.domain.model.VitalSigns;
 
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class VitalSignsClient {
 
     private final VitalSignsBuilder builder;

@@ -5,7 +5,9 @@ import Clinic.Clinic.domain.ports.InventoryItemPort;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class InventoryItemService {
 
     private final InventoryItemPort inventoryItemPort;

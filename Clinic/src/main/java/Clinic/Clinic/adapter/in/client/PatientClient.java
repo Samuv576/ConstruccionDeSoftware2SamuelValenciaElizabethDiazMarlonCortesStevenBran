@@ -4,7 +4,11 @@ import Clinic.Clinic.adapter.in.builder.PatientBuilder;
 import Clinic.Clinic.application.usecases.PatientUseCase;
 import Clinic.Clinic.domain.model.Patient;
 
+
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class PatientClient {
 

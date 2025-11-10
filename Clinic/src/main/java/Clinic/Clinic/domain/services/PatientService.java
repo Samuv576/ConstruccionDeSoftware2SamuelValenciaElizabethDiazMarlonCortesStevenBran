@@ -5,6 +5,9 @@ import Clinic.Clinic.domain.ports.PatientPort;
 
 import java.time.LocalDate;
 import java.time.Period;
+import org.springframework.stereotype.Service;
+
+@Service
 
 public class PatientService {
 

@@ -2,7 +2,9 @@ package Clinic.Clinic.application.usecases;
 
 import Clinic.Clinic.domain.model.Patient;
 import Clinic.Clinic.domain.services.PatientService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PatientUseCase {
 
     private final PatientService patientService;

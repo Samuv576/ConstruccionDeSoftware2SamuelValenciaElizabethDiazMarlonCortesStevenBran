@@ -4,6 +4,9 @@ import Clinic.Clinic.domain.model.InventoryItem;
 import Clinic.Clinic.domain.services.InventoryItemService;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class InventoryItemUseCase {
 

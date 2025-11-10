@@ -3,10 +3,12 @@ package Clinic.Clinic.adapter.in.client;
 import Clinic.Clinic.adapter.in.builder.AppointmentBuilder;
 import Clinic.Clinic.application.usecases.AppointmentUseCase;
 import Clinic.Clinic.domain.model.Appointment;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+@Component
 public class AppointmentClient {
 
     private final AppointmentBuilder builder;
@@ -34,7 +36,7 @@ public class AppointmentClient {
                     String patientId = scanner.nextLine();
                     System.out.print("ID del doctor: ");
                     String doctorId = scanner.nextLine();
-                    System.out.print("Fecha y hora (yyyy-MM-ddTHH:mm): ");
+                    System.out.print("Fecha y hora (yyyy-MM-dd HH:mm): ");
                     String dateTime = scanner.nextLine();
                     System.out.print("Motivo de la cita: ");
                     String reason = scanner.nextLine();

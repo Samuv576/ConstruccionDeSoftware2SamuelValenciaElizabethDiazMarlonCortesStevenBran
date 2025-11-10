@@ -2,9 +2,11 @@ package Clinic.Clinic.application.usecases;
 
 import Clinic.Clinic.domain.model.Appointment;
 import Clinic.Clinic.domain.services.AppointmentService;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class AppointmentUseCase {
 
     private final AppointmentService appointmentService;

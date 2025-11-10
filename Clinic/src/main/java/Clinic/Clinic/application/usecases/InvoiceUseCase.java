@@ -2,6 +2,9 @@ package Clinic.Clinic.application.usecases;
 
 import Clinic.Clinic.domain.model.Invoice;
 import Clinic.Clinic.domain.services.InvoiceService;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class InvoiceUseCase {
 

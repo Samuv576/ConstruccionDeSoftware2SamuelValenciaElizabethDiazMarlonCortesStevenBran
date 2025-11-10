@@ -2,7 +2,9 @@ package Clinic.Clinic.domain.services;
 
 import Clinic.Clinic.domain.model.VitalSigns;
 import Clinic.Clinic.domain.ports.VitalSignsPort;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VitalSignsService {
 
     private final VitalSignsPort vitalSignsPort;

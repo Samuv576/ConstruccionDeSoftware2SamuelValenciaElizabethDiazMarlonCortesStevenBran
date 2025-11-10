@@ -5,6 +5,9 @@ import Clinic.Clinic.application.usecases.InvoiceUseCase;
 import Clinic.Clinic.domain.model.Invoice;
 
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class InvoiceClient {
 
@@ -27,7 +30,7 @@ public class InvoiceClient {
         String amount = scanner.nextLine();
         System.out.print("Descripción: ");
         String description = scanner.nextLine();
-        System.out.print("Fecha y hora (yyyy-MM-ddTHH:mm): ");
+        System.out.print("Fecha y hora (yyyy-MM-dd HH:mm): ");
         String dateTime = scanner.nextLine();
 
         try {

@@ -4,6 +4,9 @@ import Clinic.Clinic.domain.model.ClinicalRecord;
 import Clinic.Clinic.domain.model.ClinicalOrder;
 import Clinic.Clinic.domain.model.VitalSigns;
 import Clinic.Clinic.domain.ports.ClinicalRecordPort;
+import org.springframework.stereotype.Service;
+
+@Service
 
 public class ClinicalRecordService {
 

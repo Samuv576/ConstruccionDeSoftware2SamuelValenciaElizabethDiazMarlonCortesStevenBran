@@ -4,6 +4,9 @@ import Clinic.Clinic.domain.model.SpecialistType;
 import Clinic.Clinic.domain.ports.SpecialistTypePort;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
+
+@Service
 
 public class SpecialistTypeService {
 
@@ -30,7 +33,6 @@ public class SpecialistTypeService {
         specialistTypePort.save(type);
     }
 
-
     public SpecialistType findById(String id) throws Exception {
         SpecialistType type = specialistTypePort.findById(id);
         if (type == null) {
@@ -39,11 +41,9 @@ public class SpecialistTypeService {
         return type;
     }
 
-
     public List<SpecialistType> listAllSpecialties() throws Exception {
-        throw new UnsupportedOperationException("listAllSpecialties debe implementarse en el adaptador");
+        return specialistTypePort.findAll(); // ✅ Ya implementado en el adapter
     }
-
 
     public void delete(SpecialistType type) throws Exception {
         SpecialistType existing = specialistTypePort.findById(type.getId());

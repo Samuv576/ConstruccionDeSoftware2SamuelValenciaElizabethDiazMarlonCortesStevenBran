@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class MedicalHistoryClient {
 

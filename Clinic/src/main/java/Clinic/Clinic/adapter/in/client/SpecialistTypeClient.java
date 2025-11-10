@@ -4,7 +4,11 @@ import Clinic.Clinic.adapter.in.builder.SpecialistTypeBuilder;
 import Clinic.Clinic.application.usecases.SpecialistTypeUseCase;
 import Clinic.Clinic.domain.model.SpecialistType;
 
+import java.util.List;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
+
+@Component
 
 public class SpecialistTypeClient {
 
@@ -22,6 +26,7 @@ public class SpecialistTypeClient {
         System.out.println("1. Registrar tipo");
         System.out.println("2. Consultar tipo por ID");
         System.out.println("3. Eliminar tipo");
+        System.out.println("4. Listar todos los tipos"); // ✅ Nueva opción
         System.out.print("Seleccione una opción: ");
         String option = scanner.nextLine();
 
@@ -52,6 +57,18 @@ public class SpecialistTypeClient {
                     type.setId(id);
                     useCase.deleteSpecialistType(type);
                     System.out.println("🗑️ Tipo de especialista eliminado.");
+                }
+
+                case "4" -> {
+                    List<SpecialistType> types = useCase.listAllSpecialties();
+                    if (types.isEmpty()) {
+                        System.out.println("📭 No hay tipos de especialista registrados.");
+                    } else {
+                        System.out.println("📋 Tipos de especialista registrados:");
+                        for (SpecialistType type : types) {
+                            System.out.println("- " + type.getId() + ": " + type.getName());
+                        }
+                    }
                 }
 
                 default -> System.out.println("❌ Opción inválida.");

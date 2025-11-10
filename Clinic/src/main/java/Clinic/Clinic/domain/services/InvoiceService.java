@@ -2,6 +2,9 @@ package Clinic.Clinic.domain.services;
 
 import Clinic.Clinic.domain.model.Invoice;
 import Clinic.Clinic.domain.ports.InvoicePort;
+import org.springframework.stereotype.Service;
+
+@Service
 
 public class InvoiceService {
 
