@@ -42,7 +42,7 @@ public class SpecialistTypeService {
     }
 
     public List<SpecialistType> listAllSpecialties() throws Exception {
-        return specialistTypePort.findAll(); // ✅ Ya implementado en el adapter
+        return specialistTypePort.findAll();
     }
 
     public void delete(SpecialistType type) throws Exception {

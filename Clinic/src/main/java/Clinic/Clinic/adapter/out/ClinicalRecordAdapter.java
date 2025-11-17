@@ -37,14 +37,14 @@ public class ClinicalRecordAdapter implements ClinicalRecordPort {
         database.removeIf(wrapper -> wrapper.patientDocument.equals(patientDocument));
     }
 
-    // Simulación de cómo se obtiene el documento del paciente desde el record
+
     private String extractPatientDocument(ClinicalRecord record) {
-        // Este método debe extraer el documento del paciente desde alguna parte del record
-        // Por ahora lo dejamos como un placeholder
+
+
         return record.getClinicalOrder() != null ? record.getClinicalOrder().getOrderNumber() : "unknown";
     }
 
-    // Clase interna para asociar el record con el documento del paciente
+
     private static class ClinicalRecordWrapper {
         String patientDocument;
         ClinicalRecord record;

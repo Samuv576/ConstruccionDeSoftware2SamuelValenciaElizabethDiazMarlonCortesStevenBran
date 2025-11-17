@@ -10,9 +10,9 @@ import Clinic.Clinic.adapter.in.client.InvoiceClient;
 import Clinic.Clinic.adapter.in.client.MedicalHistoryClient;
 import Clinic.Clinic.adapter.in.client.ClinicalOrderClient;
 import Clinic.Clinic.adapter.in.client.MedicalNoteClient;
-import Clinic.Clinic.adapter.in.client.PatientClient; // ✅ Nuevo import
-import Clinic.Clinic.adapter.in.client.SpecialistTypeClient; // ✅ Nuevo import
-import Clinic.Clinic.adapter.in.client.VitalSignsClient; // ✅ Nuevo import
+import Clinic.Clinic.adapter.in.client.PatientClient;
+import Clinic.Clinic.adapter.in.client.SpecialistTypeClient;
+import Clinic.Clinic.adapter.in.client.VitalSignsClient;
 
 
 
@@ -36,9 +36,9 @@ public class ClinicApplication implements CommandLineRunner {
     private final MedicalHistoryClient medicalHistoryClient;
     private final ClinicalOrderClient clinicalOrderClient;
     private final MedicalNoteClient medicalNoteClient;
-    private final PatientClient patientClient; // ✅ Nuevo campo
-    private final SpecialistTypeClient specialistTypeClient; // ✅ Nuevo campo
-    private final VitalSignsClient vitalSignsClient; // ✅ Nuevo campo
+    private final PatientClient patientClient;
+    private final SpecialistTypeClient specialistTypeClient;
+    private final VitalSignsClient vitalSignsClient;
 
 
 
@@ -56,7 +56,7 @@ public class ClinicApplication implements CommandLineRunner {
         MedicalNoteClient medicalNoteClient,
         PatientClient patientClient,
         SpecialistTypeClient specialistTypeClient,
-        VitalSignsClient vitalSignsClient // ✅ Nuevo parámetro
+        VitalSignsClient vitalSignsClient
     ) {
         this.userClient = userClient;
         this.appointmentClient = appointmentClient;
@@ -91,9 +91,9 @@ public class ClinicApplication implements CommandLineRunner {
         System.out.println("8. Gestión de Historial Médico");
         System.out.println("9. Gestión de Órdenes Clínicas");
         System.out.println("10. Gestión de Notas Médicas");
-        System.out.println("11. Gestión de Pacientes"); // ✅ Nuevo ítem
-        System.out.println("12. Gestión de Tipos de Especialista"); // ✅ Nuevo ítem
-        System.out.println("13. Gestión de Signos Vitales"); // ✅ Nuevo ítem
+        System.out.println("11. Gestión de Pacientes");
+        System.out.println("12. Gestión de Tipos de Especialista");
+        System.out.println("13. Gestión de Signos Vitales");
 
         System.out.print("Seleccione una opción: ");
         String option = scanner.nextLine();
@@ -109,9 +109,9 @@ public class ClinicApplication implements CommandLineRunner {
             case "8" -> medicalHistoryClient.run();
             case "9" -> clinicalOrderClient.run();
             case "10" -> medicalNoteClient.run();
-            case "11" -> patientClient.run(); // ✅ Nuevo caso
-            case "12" -> specialistTypeClient.run(); // ✅ Nuevo caso
-            case "13" -> vitalSignsClient.run(); // ✅ Nuevo caso
+            case "11" -> patientClient.run();
+            case "12" -> specialistTypeClient.run();
+            case "13" -> vitalSignsClient.run();
 
             
             default -> System.out.println("❌ Opción inválida.");

@@ -10,7 +10,7 @@ import java.util.Map;
 @Repository
 public class InsurancePolicyAdapter implements InsurancePolicyPort {
 
-    // Simulación de base de datos en memoria
+
     private final Map<String, InsurancePolicy> database = new HashMap<>();
 
     @Override

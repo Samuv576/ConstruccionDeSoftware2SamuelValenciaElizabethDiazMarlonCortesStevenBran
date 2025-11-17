@@ -10,7 +10,7 @@ import java.util.Map;
 @Repository
 public class PatientAdapter implements PatientPort {
 
-    // Simulación de base de datos en memoria
+
     private final Map<Long, Patient> database = new HashMap<>();
 
     @Override

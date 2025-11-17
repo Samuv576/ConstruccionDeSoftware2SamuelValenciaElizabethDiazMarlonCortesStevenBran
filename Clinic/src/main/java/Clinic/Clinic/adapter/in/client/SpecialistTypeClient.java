@@ -26,7 +26,7 @@ public class SpecialistTypeClient {
         System.out.println("1. Registrar tipo");
         System.out.println("2. Consultar tipo por ID");
         System.out.println("3. Eliminar tipo");
-        System.out.println("4. Listar todos los tipos"); // ✅ Nueva opción
+        System.out.println("4. Listar todos los tipos");
         System.out.print("Seleccione una opción: ");
         String option = scanner.nextLine();
 

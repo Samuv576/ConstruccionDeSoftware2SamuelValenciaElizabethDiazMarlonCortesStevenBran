@@ -9,5 +9,5 @@ public interface SpecialistTypePort {
     void save(SpecialistType specialistType) throws Exception;
     void delete(SpecialistType specialistType) throws Exception;
 
-    List<SpecialistType> findAll() throws Exception; // ✅ Nuevo método
+    List<SpecialistType> findAll() throws Exception;
 }

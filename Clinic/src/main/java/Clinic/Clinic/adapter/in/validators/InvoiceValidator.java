@@ -3,7 +3,7 @@ package Clinic.Clinic.adapter.in.validators;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter; // ✅ Import necesario
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class InvoiceValidator extends SimpleValidator {

@@ -18,7 +18,7 @@ public class MedicalHistoryService {
         this.medicalHistoryPort = medicalHistoryPort;
     }
 
-    // Crear historial médico
+
     public void create(MedicalHistory history) throws Exception {
         if (history.getPatientDocument() == null || history.getPatientDocument().isEmpty()) {
             throw new Exception("El documento del paciente es obligatorio");

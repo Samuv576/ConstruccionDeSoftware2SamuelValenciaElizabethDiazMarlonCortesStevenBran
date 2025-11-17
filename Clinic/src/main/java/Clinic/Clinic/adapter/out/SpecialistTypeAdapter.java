@@ -12,7 +12,7 @@ import java.util.Map;
 @Repository
 public class SpecialistTypeAdapter implements SpecialistTypePort {
 
-    // Simulación de base de datos en memoria
+
     private final Map<String, SpecialistType> database = new HashMap<>();
 
     @Override

@@ -34,7 +34,7 @@ public class UserClient {
 		try {
 			switch (option) {
 			case "1" -> {
-				boolean firstUser = useCase.isEmpty(); // ✅ Detectar si es el primer usuario
+				boolean firstUser = useCase.isEmpty();
 				User creator = null;
 
 				if (!firstUser) {

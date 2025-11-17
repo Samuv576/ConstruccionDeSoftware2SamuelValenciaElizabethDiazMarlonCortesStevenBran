@@ -10,7 +10,7 @@ import java.util.Map;
 @Repository
 public class MedicalNoteAdapter implements MedicalNotePort {
 
-    // Simulación de base de datos en memoria
+
     private final Map<Long, MedicalNote> database = new HashMap<>();
 
     @Override

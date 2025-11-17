@@ -51,7 +51,7 @@ public class MedicalHistoryClient {
                     String dateStr = scanner.nextLine();
                     LocalDate date = LocalDate.parse(dateStr);
 
-                    // Simulación de entrada médica (en producción usarías MedicalHistoryEntryBuilder)
+
                     MedicalHistoryEntry entry = new MedicalHistoryEntry();
                     System.out.print("Motivo: ");
                     entry.setReason(scanner.nextLine());

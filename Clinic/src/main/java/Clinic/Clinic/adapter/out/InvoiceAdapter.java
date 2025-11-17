@@ -10,7 +10,7 @@ import java.util.Map;
 @Repository
 public class InvoiceAdapter implements InvoicePort {
 
-    // Simulación de base de datos en memoria
+
     private final Map<Long, Invoice> database = new HashMap<>();
 
     @Override

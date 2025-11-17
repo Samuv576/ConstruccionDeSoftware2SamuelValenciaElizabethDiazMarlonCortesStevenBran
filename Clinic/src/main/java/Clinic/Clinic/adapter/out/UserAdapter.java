@@ -2,48 +2,57 @@ package Clinic.Clinic.adapter.out;
 
 import Clinic.Clinic.domain.model.User;
 import Clinic.Clinic.domain.ports.UserPort;
+import Clinic.Clinic.infrastructure.persistence.entities.UserEntity;
+import Clinic.Clinic.infrastructure.persistence.mapper.UserMapper;
+import Clinic.Clinic.infrastructure.persistence.repository.UserRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class UserAdapter implements UserPort {
 
-    private final List<User> database = new ArrayList<>();
+    private final UserRepository userRepository;
+
+    public UserAdapter(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User findByDocument(User user) {
-        return database.stream()
-                .filter(u -> u.getId() == user.getId())
-                .findFirst()
-                .orElse(null);
+        if (user == null || user.getId() == 0) {
+            return null;
+        }
+
+        UserEntity entity = userRepository.findByDocument(user.getId());
+        return UserMapper.toDomain(entity);
     }
 
     @Override
     public User findByUserName(User user) {
-        return database.stream()
-                .filter(u -> u.getUsername().equalsIgnoreCase(user.getUsername()))
-                .findFirst()
-                .orElse(null);
+        if (user == null || user.getUsername() == null) {
+            return null;
+        }
+
+        UserEntity entity = userRepository.findByUserName(user.getUsername());
+        return UserMapper.toDomain(entity);
     }
 
     @Override
     public void save(User user) {
-        User existing = findByDocument(user);
-        if (existing != null) {
-            database.remove(existing);
-        }
-        database.add(user);
+        UserEntity entity = UserMapper.toEntity(user);
+        userRepository.save(entity);
     }
 
     @Override
     public void delete(User user) {
-        database.removeIf(u -> u.getId() == user.getId());
+        if (user == null || user.getId() == 0) {
+            return;
+        }
+
+        userRepository.deleteById(user.getId());
     }
 
     @Override
     public boolean isEmpty() {
-        return database.isEmpty(); // ✅ implementación nueva
+        return userRepository.count() == 0;
     }
 }

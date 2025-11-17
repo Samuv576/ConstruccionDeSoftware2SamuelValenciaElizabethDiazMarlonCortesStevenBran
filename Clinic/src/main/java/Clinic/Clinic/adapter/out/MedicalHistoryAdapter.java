@@ -10,7 +10,7 @@ import java.util.Map;
 @Repository
 public class MedicalHistoryAdapter implements MedicalHistoryPort {
 
-    // Simulación de base de datos en memoria
+
     private final Map<String, MedicalHistory> database = new HashMap<>();
 
     @Override

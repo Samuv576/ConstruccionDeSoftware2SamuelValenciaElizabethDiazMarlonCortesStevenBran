@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Repository
 public class InventoryItemAdapter implements InventoryItemPort {
 
-    // Simulación de base de datos en memoria
+
     private final Map<String, InventoryItem> database = new HashMap<>();
 
     @Override
@@ -30,7 +30,7 @@ public class InventoryItemAdapter implements InventoryItemPort {
         database.remove(item.getId());
     }
 
-    // Implementación adicional para búsqueda por tipo
+
     public List<InventoryItem> findByType(String type) {
         return database.values().stream()
                 .filter(item -> item.getType().equalsIgnoreCase(type))
