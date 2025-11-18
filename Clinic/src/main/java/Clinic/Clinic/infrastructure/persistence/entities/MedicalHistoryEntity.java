@@ -1,15 +1,24 @@
-package Clinic.Clinic.domain.model;
+package Clinic.Clinic.infrastructure.persistence.entities;
 
-import java.time.LocalDate;
-import java.util.Map;
+import jakarta.persistence.*;
 
-public class MedicalHistory {
+@Entity
+@Table(name = "medical_histories")
+public class MedicalHistoryEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String patientDocument;
-    private String patientName;
-    private String historyDetails;
-    private Map<LocalDate, MedicalHistoryEntry> entries;
 
+    @Column(nullable = false)
+    private String patientName;
+
+    @Column(nullable = false)
+    private String historyDetails;
+
+    // Add other fields based on MedicalHistory model
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -17,9 +26,6 @@ public class MedicalHistory {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getPatientDocument() { return patientDocument; }
-    public void setPatientDocument(String patientDocument) { this.patientDocument = patientDocument; }
 
     public String getPatientName() {
         return patientName;
@@ -36,7 +42,4 @@ public class MedicalHistory {
     public void setHistoryDetails(String historyDetails) {
         this.historyDetails = historyDetails;
     }
-
-    public Map<LocalDate, MedicalHistoryEntry> getEntries() { return entries; }
-    public void setEntries(Map<LocalDate, MedicalHistoryEntry> entries) { this.entries = entries; }
 }

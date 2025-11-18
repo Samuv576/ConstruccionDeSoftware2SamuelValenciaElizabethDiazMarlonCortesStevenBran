@@ -14,13 +14,13 @@ public class InventoryItemBuilder {
     }
 
     public InventoryItem build(String idStr, String nameStr, String typeStr) throws Exception {
-        String id = validator.validateId(idStr);
+        Long id = Long.parseLong(validator.validateId(idStr));
         String name = validator.validateName(nameStr);
         String type = validator.validateType(typeStr);
 
         InventoryItem item = new InventoryItem();
         item.setId(id);
-        item.setName(name);
+        item.setItemName(name);
         item.setType(type);
 
         return item;

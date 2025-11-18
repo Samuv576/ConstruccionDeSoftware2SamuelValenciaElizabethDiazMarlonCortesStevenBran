@@ -14,7 +14,7 @@ public class DiagnosticAidOrderItemBuilder {
     }
 
     public DiagnosticAidOrderItem build(String idStr, String nameStr, String resultAvailableStr, String itemNumberStr) throws Exception {
-        String id = validator.validateId(idStr);
+        Long id = Long.parseLong(validator.validateId(idStr));
         String name = validator.validateName(nameStr);
         boolean resultAvailable = validator.validateResultAvailable(resultAvailableStr);
         String itemNumber = validator.validateItemNumber(itemNumberStr);

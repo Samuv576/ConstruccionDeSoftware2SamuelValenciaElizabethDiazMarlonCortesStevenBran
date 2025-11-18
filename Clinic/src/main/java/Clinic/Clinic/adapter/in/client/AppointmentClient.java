@@ -21,16 +21,19 @@ public class AppointmentClient {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("=== Gestión de Citas Médicas ===");
-        System.out.println("1. Agendar cita");
-        System.out.println("2. Buscar cita");
-        System.out.println("3. Cancelar cita");
-        System.out.println("4. Reprogramar cita");
-        System.out.print("Seleccione una opción: ");
-        String option = scanner.nextLine();
+        boolean running = true;
+        while (running) {
+            System.out.println("=== Gestión de Citas Médicas ===");
+            System.out.println("1. Agendar cita");
+            System.out.println("2. Buscar cita");
+            System.out.println("3. Cancelar cita");
+            System.out.println("4. Reprogramar cita");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            String option = scanner.nextLine();
 
-        try {
-            switch (option) {
+            try {
+                switch (option) {
                 case "1" -> {
                     System.out.print("ID del paciente: ");
                     String patientId = scanner.nextLine();
@@ -45,7 +48,6 @@ public class AppointmentClient {
                     useCase.createAppointment(appointment);
                     System.out.println("✅ Cita agendada exitosamente.");
                 }
-
                 case "2" -> {
                     System.out.print("ID de la cita: ");
                     long id = Long.parseLong(scanner.nextLine());
@@ -57,7 +59,6 @@ public class AppointmentClient {
                             " el " + found.getDateTime() +
                             " por motivo: " + found.getReason());
                 }
-
                 case "3" -> {
                     System.out.print("ID de la cita a cancelar: ");
                     long id = Long.parseLong(scanner.nextLine());
@@ -66,7 +67,6 @@ public class AppointmentClient {
                     useCase.cancelAppointment(temp);
                     System.out.println("❌ Cita cancelada.");
                 }
-
                 case "4" -> {
                     System.out.print("ID de la cita a reprogramar: ");
                     long id = Long.parseLong(scanner.nextLine());
@@ -79,11 +79,15 @@ public class AppointmentClient {
                     useCase.rescheduleAppointment(temp, newDate);
                     System.out.println("🔄 Cita reprogramada.");
                 }
-
+                case "0" -> {
+                    running = false;
+                    System.out.println("Saliendo de gestión de citas médicas...");
+                }
                 default -> System.out.println("❌ Opción inválida.");
+                }
+            } catch (Exception e) {
+                System.out.println("⚠️ Error: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("⚠️ Error: " + e.getMessage());
         }
     }
 }

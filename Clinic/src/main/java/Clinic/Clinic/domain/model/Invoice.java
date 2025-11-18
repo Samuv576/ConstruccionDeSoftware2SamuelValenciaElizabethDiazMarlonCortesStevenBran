@@ -9,6 +9,7 @@ public class Invoice {
     private double amount;
     private String description;
     private LocalDateTime dateTime;
+    private String invoiceNumber;
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
@@ -27,4 +28,12 @@ public class Invoice {
 
     public LocalDateTime getDateTime() { return dateTime; }
     public void setDateTime(LocalDateTime dateTime) { this.dateTime = dateTime; }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
 }

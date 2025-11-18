@@ -3,7 +3,6 @@ package Clinic.Clinic.domain.services;
 import Clinic.Clinic.domain.model.InventoryItem;
 import Clinic.Clinic.domain.ports.InventoryItemPort;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +17,11 @@ public class InventoryItemService {
 
 
     public void create(InventoryItem item) throws Exception {
-        if (item.getId() == null || item.getId().isEmpty()) {
+        if (item.getId() == null) {
             throw new Exception("El ID del ítem es obligatorio");
         }
 
-        if (item.getName() == null || item.getName().isEmpty()) {
+        if (item.getItemName() == null || item.getItemName().isEmpty()) {
             throw new Exception("El nombre del ítem es obligatorio");
         }
 

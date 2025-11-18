@@ -20,54 +20,58 @@ public class VitalSignsClient {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("=== Gestión de Signos Vitales ===");
-        System.out.println("1. Registrar signos vitales");
-        System.out.println("2. Consultar signos por paciente");
-        System.out.println("3. Actualizar signos");
-        System.out.println("4. Eliminar signos");
-        System.out.print("Seleccione una opción: ");
-        String option = scanner.nextLine();
+        boolean running = true;
+        while (running) {
+            System.out.println("=== Gestión de Signos Vitales ===");
+            System.out.println("1. Registrar signos vitales");
+            System.out.println("2. Consultar signos por paciente");
+            System.out.println("3. Actualizar signos");
+            System.out.println("4. Eliminar signos");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            String option = scanner.nextLine();
 
-        try {
-            switch (option) {
-                case "1" -> {
-                    System.out.print("Documento del paciente: ");
-                    String document = scanner.nextLine();
-                    VitalSigns signs = buildSigns(scanner);
-                    useCase.createVitalSigns(signs, document);
-                    System.out.println("✅ Signos vitales registrados.");
+            try {
+                switch (option) {
+                    case "1" -> {
+                        System.out.print("Documento del paciente: ");
+                        String document = scanner.nextLine();
+                        VitalSigns signs = buildSigns(scanner);
+                        useCase.createVitalSigns(signs, document);
+                        System.out.println("✅ Signos vitales registrados.");
+                    }
+                    case "2" -> {
+                        System.out.print("Documento del paciente: ");
+                        String document = scanner.nextLine();
+                        VitalSigns signs = useCase.findVitalSignsByPatient(document);
+                        System.out.println("📊 Signos encontrados:");
+                        System.out.println("Presión arterial: " + signs.getBloodPressure());
+                        System.out.println("Temperatura: " + signs.getTemperature());
+                        System.out.println("Pulso: " + signs.getPulse());
+                        System.out.println("Oxígeno: " + signs.getOxygenLevel());
+                    }
+                    case "3" -> {
+                        System.out.print("Documento del paciente: ");
+                        String document = scanner.nextLine();
+                        VitalSigns signs = buildSigns(scanner);
+                        useCase.updateVitalSigns(signs, document);
+                        System.out.println("✏️ Signos vitales actualizados.");
+                    }
+                    case "4" -> {
+                        System.out.print("Documento del paciente: ");
+                        String document = scanner.nextLine();
+                        useCase.deleteVitalSigns(document);
+                        System.out.println("🗑️ Signos vitales eliminados.");
+                    }
+                    case "0" -> {
+                        running = false;
+                        System.out.println("Saliendo de gestión de signos vitales...");
+                    }
+                    default -> System.out.println("❌ Opción inválida.");
                 }
-
-                case "2" -> {
-                    System.out.print("Documento del paciente: ");
-                    String document = scanner.nextLine();
-                    VitalSigns signs = useCase.findVitalSignsByPatient(document);
-                    System.out.println("📊 Signos encontrados:");
-                    System.out.println("Presión arterial: " + signs.getBloodPressure());
-                    System.out.println("Temperatura: " + signs.getTemperature());
-                    System.out.println("Pulso: " + signs.getPulse());
-                    System.out.println("Oxígeno: " + signs.getOxygenLevel());
-                }
-
-                case "3" -> {
-                    System.out.print("Documento del paciente: ");
-                    String document = scanner.nextLine();
-                    VitalSigns signs = buildSigns(scanner);
-                    useCase.updateVitalSigns(signs, document);
-                    System.out.println("✏️ Signos vitales actualizados.");
-                }
-
-                case "4" -> {
-                    System.out.print("Documento del paciente: ");
-                    String document = scanner.nextLine();
-                    useCase.deleteVitalSigns(document);
-                    System.out.println("🗑️ Signos vitales eliminados.");
-                }
-
-                default -> System.out.println("❌ Opción inválida.");
+            } catch (Exception e) {
+                System.out.println("⚠️ Error: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("⚠️ Error: " + e.getMessage());
         }
     }
 

@@ -25,73 +25,77 @@ public class MedicalHistoryClient {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("=== Gestión de Historial Médico ===");
-        System.out.println("1. Crear historial médico");
-        System.out.println("2. Agregar entrada");
-        System.out.println("3. Consultar entradas");
-        System.out.println("4. Eliminar entrada");
-        System.out.print("Seleccione una opción: ");
-        String option = scanner.nextLine();
+        boolean running = true;
+        while (running) {
+            System.out.println("=== Gestión de Historial Médico ===");
+            System.out.println("1. Crear historial médico");
+            System.out.println("2. Agregar entrada");
+            System.out.println("3. Consultar entradas");
+            System.out.println("4. Eliminar entrada");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            String option = scanner.nextLine();
 
-        try {
-            switch (option) {
-                case "1" -> {
-                    System.out.print("Documento del paciente: ");
-                    String document = scanner.nextLine();
+            try {
+                switch (option) {
+                    case "1" -> {
+                        System.out.print("Documento del paciente: ");
+                        String document = scanner.nextLine();
 
-                    MedicalHistory history = builder.build(document, new HashMap<>());
-                    useCase.createMedicalHistory(history);
-                    System.out.println("✅ Historial médico creado.");
-                }
-
-                case "2" -> {
-                    System.out.print("Documento del paciente: ");
-                    String document = scanner.nextLine();
-                    System.out.print("Fecha de entrada (yyyy-MM-dd): ");
-                    String dateStr = scanner.nextLine();
-                    LocalDate date = LocalDate.parse(dateStr);
-
-
-                    MedicalHistoryEntry entry = new MedicalHistoryEntry();
-                    System.out.print("Motivo: ");
-                    entry.setReason(scanner.nextLine());
-                    System.out.print("Síntomas: ");
-                    entry.setSymptoms(scanner.nextLine());
-                    System.out.print("Diagnóstico: ");
-                    entry.setDiagnosis(scanner.nextLine());
-                    System.out.print("Documento del médico: ");
-                    entry.setDoctorDocument(scanner.nextLine());
-
-                    useCase.addEntryToHistory(document, date, entry);
-                    System.out.println("📝 Entrada agregada al historial.");
-                }
-
-                case "3" -> {
-                    System.out.print("Documento del paciente: ");
-                    String document = scanner.nextLine();
-                    Map<LocalDate, MedicalHistoryEntry> entries = useCase.getHistoryEntries(document);
-
-                    System.out.println("📚 Entradas encontradas:");
-                    for (Map.Entry<LocalDate, MedicalHistoryEntry> entry : entries.entrySet()) {
-                        System.out.println("Fecha: " + entry.getKey() + " | Motivo: " + entry.getValue().getReason());
+                        MedicalHistory history = builder.build(document, new HashMap<>());
+                        useCase.createMedicalHistory(history);
+                        System.out.println("✅ Historial médico creado.");
                     }
+                    case "2" -> {
+                        System.out.print("Documento del paciente: ");
+                        String document = scanner.nextLine();
+                        System.out.print("Fecha de entrada (yyyy-MM-dd): ");
+                        String dateStr = scanner.nextLine();
+                        LocalDate date = LocalDate.parse(dateStr);
+
+
+                        MedicalHistoryEntry entry = new MedicalHistoryEntry();
+                        System.out.print("Motivo: ");
+                        entry.setReason(scanner.nextLine());
+                        System.out.print("Síntomas: ");
+                        entry.setSymptoms(scanner.nextLine());
+                        System.out.print("Diagnóstico: ");
+                        entry.setDiagnosis(scanner.nextLine());
+                        System.out.print("Documento del médico: ");
+                        entry.setDoctorDocument(scanner.nextLine());
+
+                        useCase.addEntryToHistory(document, date, entry);
+                        System.out.println("📝 Entrada agregada al historial.");
+                    }
+                    case "3" -> {
+                        System.out.print("Documento del paciente: ");
+                        String document = scanner.nextLine();
+                        Map<LocalDate, MedicalHistoryEntry> entries = useCase.getHistoryEntries(document);
+
+                        System.out.println("📚 Entradas encontradas:");
+                        for (Map.Entry<LocalDate, MedicalHistoryEntry> entry : entries.entrySet()) {
+                            System.out.println("Fecha: " + entry.getKey() + " | Motivo: " + entry.getValue().getReason());
+                        }
+                    }
+                    case "4" -> {
+                        System.out.print("Documento del paciente: ");
+                        String document = scanner.nextLine();
+                        System.out.print("Fecha de la entrada a eliminar (yyyy-MM-dd): ");
+                        String dateStr = scanner.nextLine();
+                        LocalDate date = LocalDate.parse(dateStr);
+
+                        useCase.deleteEntryFromHistory(document, date);
+                        System.out.println("🗑️ Entrada eliminada.");
+                    }
+                    case "0" -> {
+                        running = false;
+                        System.out.println("Saliendo de gestión de historial médico...");
+                    }
+                    default -> System.out.println("❌ Opción inválida.");
                 }
-
-                case "4" -> {
-                    System.out.print("Documento del paciente: ");
-                    String document = scanner.nextLine();
-                    System.out.print("Fecha de la entrada a eliminar (yyyy-MM-dd): ");
-                    String dateStr = scanner.nextLine();
-                    LocalDate date = LocalDate.parse(dateStr);
-
-                    useCase.deleteEntryFromHistory(document, date);
-                    System.out.println("🗑️ Entrada eliminada.");
-                }
-
-                default -> System.out.println("❌ Opción inválida.");
+            } catch (Exception e) {
+                System.out.println("⚠️ Error: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("⚠️ Error: " + e.getMessage());
         }
     }
 }

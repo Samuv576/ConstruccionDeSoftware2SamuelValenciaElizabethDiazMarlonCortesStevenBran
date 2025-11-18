@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 public class InventoryItemAdapter implements InventoryItemPort {
 
 
-    private final Map<String, InventoryItem> database = new HashMap<>();
+    private final Map<Long, InventoryItem> database = new HashMap<>();
 
     @Override
-    public InventoryItem findById(String id) {
+    public InventoryItem findById(Long id) {
         return database.get(id);
     }
 

@@ -10,6 +10,7 @@ public class Patient {
     private LocalDate dateOfBirth;
     private String phone;
     private String address;
+    private String document;
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
@@ -28,4 +29,12 @@ public class Patient {
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
 }

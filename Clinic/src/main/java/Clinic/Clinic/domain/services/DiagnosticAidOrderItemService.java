@@ -15,7 +15,7 @@ public class DiagnosticAidOrderItemService {
     public void create(DiagnosticAidOrderItem item) throws Exception {
         validateDiagnosticAid(item);
 
-        DiagnosticAidOrderItem existing = diagnosticAidOrderItemPort.findById(item.getId());
+        DiagnosticAidOrderItem existing = diagnosticAidOrderItemPort.findById(String.valueOf(item.getId()));
         if (existing != null) {
             throw new Exception("Ya existe un ítem de ayuda diagnóstica con ese ID");
         }
@@ -25,7 +25,7 @@ public class DiagnosticAidOrderItemService {
 
 
     public void markResultAvailable(String itemId) throws Exception {
-        DiagnosticAidOrderItem item = diagnosticAidOrderItemPort.findById(itemId);
+        DiagnosticAidOrderItem item = diagnosticAidOrderItemPort.findById(String.valueOf(itemId));
         if (item == null) {
             throw new Exception("No se encontró el ítem de ayuda diagnóstica");
         }
@@ -36,7 +36,7 @@ public class DiagnosticAidOrderItemService {
 
 
     public void delete(DiagnosticAidOrderItem item) throws Exception {
-        DiagnosticAidOrderItem existing = diagnosticAidOrderItemPort.findById(item.getId());
+        DiagnosticAidOrderItem existing = diagnosticAidOrderItemPort.findById(String.valueOf(item.getId()));
         if (existing == null) {
             throw new Exception("No se encontró el ítem para eliminar");
         }
@@ -46,7 +46,7 @@ public class DiagnosticAidOrderItemService {
 
 
     public void validateDiagnosticAid(DiagnosticAidOrderItem item) throws Exception {
-        if (item.getId() == null || item.getId().isEmpty()) {
+        if (item.getId() == null) {
             throw new Exception("El ID del ítem es obligatorio");
         }
 

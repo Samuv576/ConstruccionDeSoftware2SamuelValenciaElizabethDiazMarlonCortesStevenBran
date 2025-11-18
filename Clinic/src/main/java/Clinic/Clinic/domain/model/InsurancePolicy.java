@@ -3,10 +3,20 @@ package Clinic.Clinic.domain.model;
 import java.time.LocalDate;
 
 public class InsurancePolicy {
+    private Long id;
     private String companyName;
     private String policyNumber;
     private boolean active;
     private LocalDate endDate;
+    private String provider;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCompanyName() { return companyName; }
     public void setCompanyName(String companyName) { this.companyName = companyName; }
@@ -19,4 +29,12 @@ public class InsurancePolicy {
 
     public LocalDate getEndDate() { return endDate; }
     public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
 }

@@ -5,6 +5,9 @@ public class VitalSigns {
     private double temperature;
     private int pulse;
     private double oxygenLevel;
+    private Long id;
+    private String patientDocument;
+    private String vitalSignsDetails;
 
     public double getBloodPressure() { return bloodPressure; }
     public void setBloodPressure(double bloodPressure) { this.bloodPressure = bloodPressure; }
@@ -17,4 +20,28 @@ public class VitalSigns {
 
     public double getOxygenLevel() { return oxygenLevel; }
     public void setOxygenLevel(double oxygenLevel) { this.oxygenLevel = oxygenLevel; }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPatientDocument() {
+        return patientDocument;
+    }
+
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
+    }
+
+    public String getVitalSignsDetails() {
+        return vitalSignsDetails;
+    }
+
+    public void setVitalSignsDetails(String vitalSignsDetails) {
+        this.vitalSignsDetails = vitalSignsDetails;
+    }
 }
