@@ -5,6 +5,10 @@ import Clinic.Clinic.application.exceptions.BusinessException;
 import Clinic.Clinic.application.exceptions.InputsException;
 import Clinic.Clinic.application.usecases.*;
 import Clinic.Clinic.domain.model.*;
+import Clinic.Clinic.infrastructure.persistence.mapper.MedicalNoteMapper;
+import Clinic.Clinic.infrastructure.persistence.mapper.VitalSignsMapper;
+import Clinic.Clinic.infrastructure.persistence.repository.MedicalNoteRepository;
+import Clinic.Clinic.infrastructure.persistence.repository.VitalSignsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +24,30 @@ public class DoctorController {
     @Autowired
     private MedicalHistoryUseCase medicalHistoryUseCase;
 
+    @Autowired
+    private MedicalNoteRepository medicalNoteRepository;
+
+    @Autowired
+    private VitalSignsRepository vitalSignsRepository;
+
     // ClinicalRecord endpoints
     @PostMapping("/clinical-records/{patientDocument}")
     public ResponseEntity<?> createClinicalRecord(@PathVariable String patientDocument, @RequestBody ClinicalRecordRequest request) {
         try {
             ClinicalRecord record = new ClinicalRecord();
             record.setRecordDetails(request.getRecordDetails());
-            // Set medicalNote, clinicalOrder, vitalSigns with proper retrieval if needed
+            
+            // Fetch MedicalNote if ID provided
+            if (request.getMedicalNoteId() != null) {
+                medicalNoteRepository.findById(request.getMedicalNoteId())
+                    .ifPresent(entity -> record.setMedicalNote(MedicalNoteMapper.toDomain(entity)));
+            }
+            
+            // Fetch VitalSigns if ID provided
+            if (request.getVitalSignsId() != null) {
+                vitalSignsRepository.findById(request.getVitalSignsId())
+                    .ifPresent(entity -> record.setVitalSigns(VitalSignsMapper.toDomain(entity)));
+            }
 
             clinicalRecordUseCase.createClinicalRecord(record, patientDocument);
             return ResponseEntity.status(HttpStatus.CREATED).body(record);
@@ -55,8 +76,8 @@ public class DoctorController {
         try {
             MedicalHistory history = new MedicalHistory();
             history.setPatientDocument(request.getPatientDocument());
-            history.setPatientName(request.getPatientName());
-            history.setHistoryDetails(request.getHistoryDetails());
+            history.setCreationDate(request.getCreationDate());
+            history.setGeneralObservations(request.getGeneralObservations());
 
             medicalHistoryUseCase.createMedicalHistory(history);
             return ResponseEntity.status(HttpStatus.CREATED).body(history);
@@ -73,7 +94,7 @@ public class DoctorController {
     @GetMapping("/medical-histories/{patientDocument}/entries")
     public ResponseEntity<?> getMedicalHistoryEntries(@PathVariable String patientDocument) {
         try {
-            return ResponseEntity.ok(medicalHistoryUseCase.getHistoryEntries(patientDocument));
+            return ResponseEntity.ok(medicalHistoryUseCase.getHistory(patientDocument));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

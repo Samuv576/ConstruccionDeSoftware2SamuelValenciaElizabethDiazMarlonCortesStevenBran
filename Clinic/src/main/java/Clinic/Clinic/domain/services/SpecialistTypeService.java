@@ -17,23 +17,20 @@ public class SpecialistTypeService {
     }
 
     public void create(SpecialistType type) throws Exception {
-        if (type.getId() == null || type.getId().isEmpty()) {
-            throw new Exception("El ID del tipo de especialista es obligatorio");
-        }
-
         if (type.getName() == null || type.getName().isEmpty()) {
             throw new Exception("El nombre del tipo de especialista es obligatorio");
         }
 
-        SpecialistType existing = specialistTypePort.findById(type.getId());
+        // Validar duplicado por nombre
+        SpecialistType existing = specialistTypePort.findByName(type.getName());
         if (existing != null) {
-            throw new Exception("Ya existe un tipo de especialista con ese ID");
+            throw new Exception("Ya existe un tipo de especialista con ese nombre");
         }
 
         specialistTypePort.save(type);
     }
 
-    public SpecialistType findById(String id) throws Exception {
+    public SpecialistType findById(Integer id) throws Exception {
         SpecialistType type = specialistTypePort.findById(id);
         if (type == null) {
             throw new Exception("No se encontró el tipo de especialista con ese ID");

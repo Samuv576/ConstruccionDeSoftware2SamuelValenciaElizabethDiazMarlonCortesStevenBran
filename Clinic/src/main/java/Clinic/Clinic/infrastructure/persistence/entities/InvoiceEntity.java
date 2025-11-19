@@ -1,6 +1,7 @@
 package Clinic.Clinic.infrastructure.persistence.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "invoices")
@@ -16,7 +17,20 @@ public class InvoiceEntity {
     @Column(nullable = false)
     private double amount;
 
-    // Add other fields based on Invoice model
+    @Column
+    private String description;
+
+    @Column(nullable = false)
+    private String patientDocument;
+
+    @Column
+    private String status;
+
+    @Column(name = "issue_date")
+    private java.time.LocalDate issueDate;
+
+    @Column(name = "due_date")
+    private java.time.LocalDate dueDate;
 
     // Getters and Setters
     public Long getId() {
@@ -41,5 +55,45 @@ public class InvoiceEntity {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPatientDocument() {
+        return patientDocument;
+    }
+
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public java.time.LocalDate getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(java.time.LocalDate issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public java.time.LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(java.time.LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 }

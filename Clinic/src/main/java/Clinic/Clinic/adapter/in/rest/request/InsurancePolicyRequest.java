@@ -6,6 +6,7 @@ public class InsurancePolicyRequest {
     private boolean active;
     private String endDate;
     private String provider;
+    private String patientDocument;
 
     public String getCompanyName() {
         return companyName;
@@ -45,5 +46,13 @@ public class InsurancePolicyRequest {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public String getPatientDocument() {
+        return patientDocument;
+    }
+
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 }

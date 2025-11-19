@@ -4,7 +4,10 @@ import Clinic.Clinic.infrastructure.persistence.entities.InventoryItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface InventoryItemRepository extends JpaRepository<InventoryItemEntity, Long> {
-    // Add custom query methods if needed
+    List<InventoryItemEntity> findByType(String type);
+    InventoryItemEntity findByItemName(String itemName);
 }

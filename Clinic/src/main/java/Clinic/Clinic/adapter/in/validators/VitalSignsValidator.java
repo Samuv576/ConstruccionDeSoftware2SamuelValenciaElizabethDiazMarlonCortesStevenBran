@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class VitalSignsValidator extends SimpleValidator {
 
-    public double validateBloodPressure(String value) throws Exception {
-        double pressure = doubleValidator("presión arterial", value);
-        if (pressure <= 0 || pressure > 300) {
-            throw new Exception("La presión arterial debe estar en un rango clínico válido (0–300 mmHg)");
+    public String validateBloodPressure(String value) throws Exception {
+        String pressure = stringValidator("presión arterial", value);
+        if (pressure == null || pressure.trim().isEmpty()) {
+            throw new Exception("La presión arterial no puede estar vacía");
         }
         return pressure;
     }
@@ -35,6 +35,22 @@ public class VitalSignsValidator extends SimpleValidator {
             throw new Exception("El nivel de oxígeno debe estar entre 50% y 100%");
         }
         return oxygen;
+    }
+
+    public int validateHeartRate(String value) throws Exception {
+        int heartRate = intValidator("frecuencia cardíaca", value);
+        if (heartRate <= 0 || heartRate > 220) {
+            throw new Exception("La frecuencia cardíaca debe estar en un rango clínico válido (1–220 bpm)");
+        }
+        return heartRate;
+    }
+
+    public double validateWeight(String value) throws Exception {
+        double weight = doubleValidator("peso", value);
+        if (weight <= 0 || weight > 500) {
+            throw new Exception("El peso debe estar en un rango clínico válido (0–500 kg)");
+        }
+        return weight;
     }
 
     public String validatePatientDocument(String value) throws Exception {

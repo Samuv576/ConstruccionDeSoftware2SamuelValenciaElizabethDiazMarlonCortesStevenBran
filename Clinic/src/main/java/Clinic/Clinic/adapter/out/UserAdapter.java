@@ -18,11 +18,11 @@ public class UserAdapter implements UserPort {
 
     @Override
     public User findByDocument(User user) {
-        if (user == null || user.getId() == 0) {
+        if (user == null || user.getDocument() == null) {
             return null;
         }
 
-        UserEntity entity = userRepository.findByDocument(user.getId());
+        UserEntity entity = userRepository.findByDocument(user.getDocument());
         return UserMapper.toDomain(entity);
     }
 
@@ -39,7 +39,9 @@ public class UserAdapter implements UserPort {
     @Override
     public void save(User user) {
         UserEntity entity = UserMapper.toEntity(user);
-        userRepository.save(entity);
+        UserEntity saved = userRepository.save(entity);
+        // Update the domain object with the generated ID
+        user.setId(saved.getId());
     }
 
     @Override

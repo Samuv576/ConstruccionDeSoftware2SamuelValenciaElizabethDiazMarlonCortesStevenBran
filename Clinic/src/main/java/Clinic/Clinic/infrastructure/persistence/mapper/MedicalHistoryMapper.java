@@ -8,11 +8,12 @@ public class MedicalHistoryMapper {
     public static MedicalHistoryEntity toEntity(MedicalHistory medicalHistory) {
         if (medicalHistory == null) return null;
         MedicalHistoryEntity entity = new MedicalHistoryEntity();
-        entity.setId(medicalHistory.getId());
-        entity.setPatientName(medicalHistory.getPatientDocument());
-        entity.setHistoryDetails(medicalHistory.getEntries().toString());
-        // Adjusted mapping to use `patientDocument` and convert `entries` to string
-        // Map other fields
+        if (medicalHistory.getId() != null && medicalHistory.getId() > 0) {
+            entity.setId(medicalHistory.getId());
+        }
+        entity.setPatientDocument(medicalHistory.getPatientDocument());
+        entity.setCreationDate(medicalHistory.getCreationDate());
+        entity.setGeneralObservations(medicalHistory.getGeneralObservations());
         return entity;
     }
 
@@ -20,9 +21,9 @@ public class MedicalHistoryMapper {
         if (entity == null) return null;
         MedicalHistory medicalHistory = new MedicalHistory();
         medicalHistory.setId(entity.getId());
-        medicalHistory.setPatientName(entity.getPatientName());
-        medicalHistory.setHistoryDetails(entity.getHistoryDetails());
-        // Map other fields
+        medicalHistory.setPatientDocument(entity.getPatientDocument());
+        medicalHistory.setCreationDate(entity.getCreationDate());
+        medicalHistory.setGeneralObservations(entity.getGeneralObservations());
         return medicalHistory;
     }
 }

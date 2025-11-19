@@ -8,9 +8,12 @@ public class InventoryItemMapper {
     public static InventoryItemEntity toEntity(InventoryItem inventoryItem) {
         if (inventoryItem == null) return null;
         InventoryItemEntity entity = new InventoryItemEntity();
-        entity.setId(inventoryItem.getId());
+        if (inventoryItem.getId() != null && inventoryItem.getId() > 0) {
+            entity.setId(inventoryItem.getId());
+        }
         entity.setItemName(inventoryItem.getItemName());
         entity.setQuantity(inventoryItem.getQuantity());
+        entity.setType(inventoryItem.getType());
         // Map other fields
         return entity;
     }
@@ -21,6 +24,7 @@ public class InventoryItemMapper {
         inventoryItem.setId(entity.getId());
         inventoryItem.setItemName(entity.getItemName());
         inventoryItem.setQuantity(entity.getQuantity());
+        inventoryItem.setType(entity.getType());
         // Map other fields
         return inventoryItem;
     }

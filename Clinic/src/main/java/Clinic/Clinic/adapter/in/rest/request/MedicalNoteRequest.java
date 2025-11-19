@@ -1,40 +1,69 @@
 package Clinic.Clinic.adapter.in.rest.request;
 
+import java.time.LocalDateTime;
+
 public class MedicalNoteRequest {
-    private long patientId;
-    private long doctorId;
-    private String note;
-    private String dateTime;
+    private String patientDocument;
+    private String doctorDocument;
+    private LocalDateTime consultationDate;
+    private String consultationReason;
+    private String symptoms;
+    private String diagnosis;
+    private String notes;
 
-    public long getPatientId() {
-        return patientId;
+    public String getPatientDocument() {
+        return patientDocument;
     }
 
-    public void setPatientId(long patientId) {
-        this.patientId = patientId;
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 
-    public long getDoctorId() {
-        return doctorId;
+    public String getDoctorDocument() {
+        return doctorDocument;
     }
 
-    public void setDoctorId(long doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctorDocument(String doctorDocument) {
+        this.doctorDocument = doctorDocument;
     }
 
-    public String getNote() {
-        return note;
+    public LocalDateTime getConsultationDate() {
+        return consultationDate;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setConsultationDate(LocalDateTime consultationDate) {
+        this.consultationDate = consultationDate;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getConsultationReason() {
+        return consultationReason;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setConsultationReason(String consultationReason) {
+        this.consultationReason = consultationReason;
+    }
+
+    public String getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(String symptoms) {
+        this.symptoms = symptoms;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

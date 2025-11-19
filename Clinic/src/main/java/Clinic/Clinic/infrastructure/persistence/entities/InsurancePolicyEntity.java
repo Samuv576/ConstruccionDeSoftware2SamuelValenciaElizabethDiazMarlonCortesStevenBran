@@ -1,6 +1,7 @@
 package Clinic.Clinic.infrastructure.persistence.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "insurance_policies")
@@ -16,7 +17,17 @@ public class InsurancePolicyEntity {
     @Column(nullable = false)
     private String provider;
 
-    // Add other fields based on InsurancePolicy model
+    @Column(nullable = false)
+    private String companyName;
+
+    @Column(nullable = false)
+    private boolean active;
+
+    @Column
+    private LocalDate endDate;
+
+    @Column(nullable = false)
+    private String patientDocument;
 
     // Getters and Setters
     public Long getId() {
@@ -41,5 +52,37 @@ public class InsurancePolicyEntity {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getPatientDocument() {
+        return patientDocument;
+    }
+
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 }

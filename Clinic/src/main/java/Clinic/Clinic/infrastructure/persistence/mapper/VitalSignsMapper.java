@@ -8,10 +8,17 @@ public class VitalSignsMapper {
     public static VitalSignsEntity toEntity(VitalSigns vitalSigns) {
         if (vitalSigns == null) return null;
         VitalSignsEntity entity = new VitalSignsEntity();
-        entity.setId(vitalSigns.getId());
+        if (vitalSigns.getId() != null && vitalSigns.getId() > 0) {
+            entity.setId(vitalSigns.getId());
+        }
         entity.setPatientDocument(vitalSigns.getPatientDocument());
         entity.setVitalSignsDetails(vitalSigns.getVitalSignsDetails());
-        // Map other fields
+        entity.setBloodPressure(vitalSigns.getBloodPressure());
+        entity.setTemperature(vitalSigns.getTemperature());
+        entity.setPulse(vitalSigns.getPulse());
+        entity.setHeartRate(vitalSigns.getHeartRate());
+        entity.setOxygenLevel(vitalSigns.getOxygenLevel());
+        entity.setWeight(vitalSigns.getWeight());
         return entity;
     }
 
@@ -21,7 +28,12 @@ public class VitalSignsMapper {
         vitalSigns.setId(entity.getId());
         vitalSigns.setPatientDocument(entity.getPatientDocument());
         vitalSigns.setVitalSignsDetails(entity.getVitalSignsDetails());
-        // Map other fields
+        vitalSigns.setBloodPressure(entity.getBloodPressure());
+        vitalSigns.setTemperature(entity.getTemperature());
+        vitalSigns.setPulse(entity.getPulse());
+        vitalSigns.setHeartRate(entity.getHeartRate());
+        vitalSigns.setOxygenLevel(entity.getOxygenLevel());
+        vitalSigns.setWeight(entity.getWeight());
         return vitalSigns;
     }
 }

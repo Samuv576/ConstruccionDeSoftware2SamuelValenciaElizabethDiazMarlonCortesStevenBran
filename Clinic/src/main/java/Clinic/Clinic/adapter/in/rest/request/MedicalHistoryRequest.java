@@ -1,9 +1,11 @@
 package Clinic.Clinic.adapter.in.rest.request;
 
+import java.time.LocalDate;
+
 public class MedicalHistoryRequest {
     private String patientDocument;
-    private String patientName;
-    private String historyDetails;
+    private LocalDate creationDate;
+    private String generalObservations;
 
     public String getPatientDocument() {
         return patientDocument;
@@ -13,19 +15,19 @@ public class MedicalHistoryRequest {
         this.patientDocument = patientDocument;
     }
 
-    public String getPatientName() {
-        return patientName;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public String getHistoryDetails() {
-        return historyDetails;
+    public String getGeneralObservations() {
+        return generalObservations;
     }
 
-    public void setHistoryDetails(String historyDetails) {
-        this.historyDetails = historyDetails;
+    public void setGeneralObservations(String generalObservations) {
+        this.generalObservations = generalObservations;
     }
 }

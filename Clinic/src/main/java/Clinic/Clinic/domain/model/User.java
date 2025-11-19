@@ -8,6 +8,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private String document;
     private Role role;
     private LocalDate dateOfBirth;
 
@@ -22,6 +23,9 @@ public class User {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public String getDocument() { return document; }
+    public void setDocument(String document) { this.document = document; }
 
     public Role getRole() { return role; }
     public void setRole(Role role) { this.role = role; }

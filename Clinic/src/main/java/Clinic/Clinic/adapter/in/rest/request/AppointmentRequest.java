@@ -1,25 +1,25 @@
 package Clinic.Clinic.adapter.in.rest.request;
 
 public class AppointmentRequest {
-    private long patientId;
-    private long doctorId;
+    private String patientDocument;
+    private String doctorDocument;
     private String dateTime;
     private String reason;
 
-    public long getPatientId() {
-        return patientId;
+    public String getPatientDocument() {
+        return patientDocument;
     }
 
-    public void setPatientId(long patientId) {
-        this.patientId = patientId;
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 
-    public long getDoctorId() {
-        return doctorId;
+    public String getDoctorDocument() {
+        return doctorDocument;
     }
 
-    public void setDoctorId(long doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctorDocument(String doctorDocument) {
+        this.doctorDocument = doctorDocument;
     }
 
     public String getDateTime() {

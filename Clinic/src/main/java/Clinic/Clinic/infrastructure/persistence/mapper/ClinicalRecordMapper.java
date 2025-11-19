@@ -8,9 +8,22 @@ public class ClinicalRecordMapper {
     public static ClinicalRecordEntity toEntity(ClinicalRecord clinicalRecord) {
         if (clinicalRecord == null) return null;
         ClinicalRecordEntity entity = new ClinicalRecordEntity();
-        entity.setId(clinicalRecord.getId());
+        if (clinicalRecord.getId() != null && clinicalRecord.getId() > 0) {
+            entity.setId(clinicalRecord.getId());
+        }
         entity.setRecordDetails(clinicalRecord.getRecordDetails());
-        // Map other fields
+        
+        // Map foreign key IDs
+        if (clinicalRecord.getMedicalNote() != null) {
+            entity.setMedicalNoteId(clinicalRecord.getMedicalNote().getId());
+        }
+        if (clinicalRecord.getClinicalOrder() != null) {
+            entity.setClinicalOrderId(clinicalRecord.getClinicalOrder().getId());
+        }
+        if (clinicalRecord.getVitalSigns() != null) {
+            entity.setVitalSignsId(clinicalRecord.getVitalSigns().getId());
+        }
+        
         return entity;
     }
 

@@ -1,16 +1,17 @@
 package Clinic.Clinic.adapter.in.rest.request;
 
 public class InventoryItemRequest {
-    private String itemName;
+    private String name;
     private int quantity;
     private String type;
+    private String description;
 
-    public String getItemName() {
-        return itemName;
+    public String getName() {
+        return name;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getQuantity() {
@@ -27,5 +28,13 @@ public class InventoryItemRequest {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

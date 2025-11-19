@@ -51,8 +51,8 @@ public class VitalSignsService {
     }
 
     public void validateSigns(VitalSigns signs) throws Exception {
-        if (signs.getBloodPressure() <= 0 || signs.getBloodPressure() > 300) {
-            throw new Exception("La presión arterial debe estar en un rango clínico válido");
+        if (signs.getBloodPressure() == null || signs.getBloodPressure().trim().isEmpty()) {
+            throw new Exception("La presión arterial no puede estar vacía");
         }
 
         if (signs.getTemperature() < 30 || signs.getTemperature() > 45) {
@@ -63,8 +63,16 @@ public class VitalSignsService {
             throw new Exception("El pulso debe estar en un rango clínico válido");
         }
 
+        if (signs.getHeartRate() <= 0 || signs.getHeartRate() > 220) {
+            throw new Exception("La frecuencia cardíaca debe estar en un rango clínico válido");
+        }
+
         if (signs.getOxygenLevel() < 50 || signs.getOxygenLevel() > 100) {
             throw new Exception("El nivel de oxígeno debe estar entre 50% y 100%");
+        }
+
+        if (signs.getWeight() <= 0 || signs.getWeight() > 500) {
+            throw new Exception("El peso debe estar en un rango clínico válido");
         }
     }
 }

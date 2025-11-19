@@ -1,32 +1,17 @@
 package Clinic.Clinic.adapter.in.validators;
 
-import Clinic.Clinic.domain.model.MedicalHistoryEntry;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
-public class MedicalHistoryValidator extends SimpleValidator {
+public class MedicalHistoryValidator {
 
-    public String validatePatientDocument(String value) throws Exception {
-        return stringValidator("documento del paciente", value);
-    }
-
-    public LocalDate validateEntryDate(String value) throws Exception {
-        try {
-            LocalDate date = LocalDate.parse(value);
-            if (date.isAfter(LocalDate.now())) {
-                throw new Exception("La fecha de la entrada no puede ser futura");
-            }
-            return date;
-        } catch (Exception e) {
-            throw new Exception("La fecha ingresada no tiene un formato válido (yyyy-MM-dd)");
+    public String validatePatientDocument(String document) throws Exception {
+        if (document == null || document.isEmpty()) {
+            throw new Exception("El documento del paciente no puede estar vacío");
         }
-    }
-
-    public void validateEntry(MedicalHistoryEntry entry) throws Exception {
-        if (entry == null) {
-            throw new Exception("La entrada del historial médico no puede ser nula");
+        if (document.length() > 20) {
+            throw new Exception("El documento del paciente no puede tener más de 20 caracteres");
         }
+        return document;
     }
 }

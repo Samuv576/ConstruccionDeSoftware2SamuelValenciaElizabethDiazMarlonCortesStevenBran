@@ -28,7 +28,7 @@ public class SupportController {
     public ResponseEntity<?> createInventoryItem(@RequestBody InventoryItemRequest request) {
         try {
             InventoryItem item = new InventoryItem();
-            item.setItemName(request.getItemName());
+            item.setItemName(request.getName());
             item.setQuantity(request.getQuantity());
             item.setType(request.getType());
 

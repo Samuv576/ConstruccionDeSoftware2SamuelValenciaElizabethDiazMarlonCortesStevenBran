@@ -8,10 +8,16 @@ public class InvoiceMapper {
     public static InvoiceEntity toEntity(Invoice invoice) {
         if (invoice == null) return null;
         InvoiceEntity entity = new InvoiceEntity();
-        entity.setId(invoice.getId());
+        if (invoice.getId() > 0) {
+            entity.setId(invoice.getId());
+        }
         entity.setInvoiceNumber(invoice.getInvoiceNumber());
         entity.setAmount(invoice.getAmount());
-        // Map other fields
+        entity.setDescription(invoice.getDescription());
+        entity.setPatientDocument(invoice.getPatientDocument());
+        entity.setStatus(invoice.getStatus());
+        entity.setIssueDate(invoice.getIssueDate());
+        entity.setDueDate(invoice.getDueDate());
         return entity;
     }
 
@@ -21,7 +27,11 @@ public class InvoiceMapper {
         invoice.setId(entity.getId());
         invoice.setInvoiceNumber(entity.getInvoiceNumber());
         invoice.setAmount(entity.getAmount());
-        // Map other fields
+        invoice.setDescription(entity.getDescription());
+        invoice.setPatientDocument(entity.getPatientDocument());
+        invoice.setStatus(entity.getStatus());
+        invoice.setIssueDate(entity.getIssueDate());
+        invoice.setDueDate(entity.getDueDate());
         return invoice;
     }
 }

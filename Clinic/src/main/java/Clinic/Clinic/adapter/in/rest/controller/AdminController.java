@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -19,6 +22,9 @@ public class AdminController {
 
     @Autowired
     private AppointmentUseCase appointmentUseCase;
+
+    @Autowired
+    private UserUseCase userUseCase;
 
     @Autowired
     private InvoiceUseCase invoiceUseCase;
@@ -38,7 +44,16 @@ public class AdminController {
             patient.setDocument(request.getDocument());
             patient.setPhone(request.getPhone());
             patient.setAddress(request.getAddress());
-            // Set gender and dateOfBirth with proper parsing if needed
+            
+            // Parse gender
+            if (request.getGender() != null) {
+                patient.setGender(Clinic.Clinic.domain.model.enums.Gender.valueOf(request.getGender()));
+            }
+            
+            // Parse dateOfBirth
+            if (request.getDateOfBirth() != null) {
+                patient.setDateOfBirth(java.time.LocalDate.parse(request.getDateOfBirth()));
+            }
 
             patientUseCase.createPatient(patient);
             return ResponseEntity.status(HttpStatus.CREATED).body(patient);
@@ -65,9 +80,21 @@ public class AdminController {
     @PostMapping("/appointments")
     public ResponseEntity<?> createAppointment(@RequestBody AppointmentRequest request) {
         try {
+            // Fetch patient and doctor
+            Patient patient = patientUseCase.findPatientByDocument(request.getPatientDocument());
+            User doctor = userUseCase.findUserByDocument(request.getDoctorDocument());
+            
             Appointment appointment = new Appointment();
+            appointment.setPatient(patient);
+            appointment.setDoctor(doctor);
+            appointment.setPatientDocument(request.getPatientDocument());
+            appointment.setDoctorDocument(request.getDoctorDocument());
             appointment.setReason(request.getReason());
-            // Set patient, doctor, dateTime with proper parsing if needed
+            
+            // Parse dateTime
+            if (request.getDateTime() != null) {
+                appointment.setDateTime(java.time.LocalDateTime.parse(request.getDateTime()));
+            }
 
             appointmentUseCase.createAppointment(appointment);
             return ResponseEntity.status(HttpStatus.CREATED).body(appointment);
@@ -101,7 +128,22 @@ public class AdminController {
             invoice.setAmount(request.getAmount());
             invoice.setDescription(request.getDescription());
             invoice.setInvoiceNumber(request.getInvoiceNumber());
-            // Set patient, insurancePolicy, dateTime with proper parsing if needed
+            invoice.setPatientDocument(request.getPatientDocument());
+            invoice.setStatus(request.getStatus());
+            
+            // Parse dates
+            if (request.getIssueDate() != null && !request.getIssueDate().isEmpty()) {
+                invoice.setIssueDate(LocalDate.parse(request.getIssueDate()));
+            }
+            if (request.getDueDate() != null && !request.getDueDate().isEmpty()) {
+                invoice.setDueDate(LocalDate.parse(request.getDueDate()));
+            }
+            
+            // Get patient by document
+            if (request.getPatientDocument() != null) {
+                Patient patient = patientUseCase.findPatientByDocument(request.getPatientDocument());
+                invoice.setPatient(patient);
+            }
 
             invoiceUseCase.createInvoice(invoice);
             return ResponseEntity.status(HttpStatus.CREATED).body(invoice);
@@ -126,7 +168,12 @@ public class AdminController {
             policy.setPolicyNumber(request.getPolicyNumber());
             policy.setActive(request.isActive());
             policy.setProvider(request.getProvider());
-            // Set endDate with proper parsing if needed
+            policy.setPatientDocument(request.getPatientDocument());
+            
+            // Parse endDate
+            if (request.getEndDate() != null && !request.getEndDate().isEmpty()) {
+                policy.setEndDate(LocalDate.parse(request.getEndDate()));
+            }
 
             insurancePolicyUseCase.createPolicy(policy);
             return ResponseEntity.status(HttpStatus.CREATED).body(policy);
@@ -158,6 +205,7 @@ public class AdminController {
             contact.setLastName(request.getLastName());
             contact.setRelationship(request.getRelationship());
             contact.setPhone(request.getPhone());
+            contact.setPatientDocument(patientDocument);
 
             emergencyContactUseCase.createEmergencyContact(contact, patientDocument);
             return ResponseEntity.status(HttpStatus.CREATED).body(contact);

@@ -1,15 +1,11 @@
 package Clinic.Clinic.domain.services;
 
 import Clinic.Clinic.domain.model.MedicalHistory;
-import Clinic.Clinic.domain.model.MedicalHistoryEntry;
 import Clinic.Clinic.domain.ports.MedicalHistoryPort;
 
-import java.time.LocalDate;
-import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class MedicalHistoryService {
 
     private final MedicalHistoryPort medicalHistoryPort;
@@ -17,7 +13,6 @@ public class MedicalHistoryService {
     public MedicalHistoryService(MedicalHistoryPort medicalHistoryPort) {
         this.medicalHistoryPort = medicalHistoryPort;
     }
-
 
     public void create(MedicalHistory history) throws Exception {
         if (history.getPatientDocument() == null || history.getPatientDocument().isEmpty()) {
@@ -32,43 +27,19 @@ public class MedicalHistoryService {
         medicalHistoryPort.save(history);
     }
 
-    public void addEntry(String patientDocument, LocalDate date, MedicalHistoryEntry entry) throws Exception {
+    public MedicalHistory getHistory(String patientDocument) throws Exception {
         MedicalHistory history = medicalHistoryPort.findByPatientDocument(patientDocument);
         if (history == null) {
             throw new Exception("No se encontró historial médico para el paciente");
         }
-
-        Map<LocalDate, MedicalHistoryEntry> entries = history.getEntries();
-        if (entries.containsKey(date)) {
-            throw new Exception("Ya existe una entrada para esa fecha");
-        }
-
-        entries.put(date, entry);
-        medicalHistoryPort.save(history);
+        return history;
     }
 
-    public Map<LocalDate, MedicalHistoryEntry> getEntries(String patientDocument) throws Exception {
-        MedicalHistory history = medicalHistoryPort.findByPatientDocument(patientDocument);
-        if (history == null) {
-            throw new Exception("No se encontró historial médico para el paciente");
+    public void delete(MedicalHistory history) throws Exception {
+        MedicalHistory existing = medicalHistoryPort.findByPatientDocument(history.getPatientDocument());
+        if (existing == null) {
+            throw new Exception("No se encontró el historial médico para eliminar");
         }
-
-        return history.getEntries();
-    }
-
-
-    public void deleteEntry(String patientDocument, LocalDate date) throws Exception {
-        MedicalHistory history = medicalHistoryPort.findByPatientDocument(patientDocument);
-        if (history == null) {
-            throw new Exception("No se encontró historial médico para el paciente");
-        }
-
-        Map<LocalDate, MedicalHistoryEntry> entries = history.getEntries();
-        if (!entries.containsKey(date)) {
-            throw new Exception("No existe una entrada para esa fecha");
-        }
-
-        entries.remove(date);
-        medicalHistoryPort.save(history);
+        medicalHistoryPort.delete(history);
     }
 }

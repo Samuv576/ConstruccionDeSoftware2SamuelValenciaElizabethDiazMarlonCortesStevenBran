@@ -17,10 +17,6 @@ public class InventoryItemService {
 
 
     public void create(InventoryItem item) throws Exception {
-        if (item.getId() == null) {
-            throw new Exception("El ID del ítem es obligatorio");
-        }
-
         if (item.getItemName() == null || item.getItemName().isEmpty()) {
             throw new Exception("El nombre del ítem es obligatorio");
         }
@@ -29,9 +25,10 @@ public class InventoryItemService {
             throw new Exception("El tipo del ítem es obligatorio");
         }
 
-        InventoryItem existing = inventoryItemPort.findById(item.getId());
+        // Validar que no exista otro item con el mismo nombre
+        InventoryItem existing = inventoryItemPort.findByName(item.getItemName());
         if (existing != null) {
-            throw new Exception("Ya existe un ítem con ese ID");
+            throw new Exception("Ya existe un ítem con ese nombre");
         }
 
         inventoryItemPort.save(item);

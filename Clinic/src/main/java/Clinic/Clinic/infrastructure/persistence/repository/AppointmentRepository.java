@@ -6,5 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<AppointmentEntity, Long> {
-    // Add custom query methods if needed
+    java.util.List<AppointmentEntity> findByDoctorDocumentAndDateTimeBetween(
+        String doctorDocument, 
+        java.time.LocalDateTime start, 
+        java.time.LocalDateTime end
+    );
 }

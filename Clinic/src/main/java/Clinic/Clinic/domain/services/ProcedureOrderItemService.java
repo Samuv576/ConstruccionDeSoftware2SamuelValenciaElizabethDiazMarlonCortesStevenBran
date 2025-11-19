@@ -36,7 +36,7 @@ public class ProcedureOrderItemService {
     }
 
     public void validateSpecialistRequirement(ProcedureOrderItem item) throws Exception {
-        if (item.isRequiresSpecialist() && (item.getSpecialistTypeId() == null || item.getSpecialistTypeId().isEmpty())) {
+        if (item.isRequiresSpecialist() && item.getSpecialistTypeId() == null) {
             throw new Exception("El procedimiento requiere un especialista, pero no se ha asignado uno");
         }
     }

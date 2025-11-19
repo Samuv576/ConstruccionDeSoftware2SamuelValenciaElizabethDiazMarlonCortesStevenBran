@@ -20,7 +20,7 @@ public class SpecialistTypeUseCase {
         specialistTypeService.create(type);
     }
 
-    public SpecialistType findSpecialistTypeById(String id) throws Exception {
+    public SpecialistType findSpecialistTypeById(Integer id) throws Exception {
         return specialistTypeService.findById(id);
     }
 

@@ -1,14 +1,12 @@
 package Clinic.Clinic.domain.model;
 
 import java.time.LocalDate;
-import java.util.Map;
 
 public class MedicalHistory {
     private Long id;
     private String patientDocument;
-    private String patientName;
-    private String historyDetails;
-    private Map<LocalDate, MedicalHistoryEntry> entries;
+    private LocalDate creationDate;
+    private String generalObservations;
 
     public Long getId() {
         return id;
@@ -18,25 +16,27 @@ public class MedicalHistory {
         this.id = id;
     }
 
-    public String getPatientDocument() { return patientDocument; }
-    public void setPatientDocument(String patientDocument) { this.patientDocument = patientDocument; }
-
-    public String getPatientName() {
-        return patientName;
+    public String getPatientDocument() { 
+        return patientDocument; 
+    }
+    
+    public void setPatientDocument(String patientDocument) { 
+        this.patientDocument = patientDocument; 
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public String getHistoryDetails() {
-        return historyDetails;
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public void setHistoryDetails(String historyDetails) {
-        this.historyDetails = historyDetails;
+    public String getGeneralObservations() {
+        return generalObservations;
     }
 
-    public Map<LocalDate, MedicalHistoryEntry> getEntries() { return entries; }
-    public void setEntries(Map<LocalDate, MedicalHistoryEntry> entries) { this.entries = entries; }
+    public void setGeneralObservations(String generalObservations) {
+        this.generalObservations = generalObservations;
+    }
 }

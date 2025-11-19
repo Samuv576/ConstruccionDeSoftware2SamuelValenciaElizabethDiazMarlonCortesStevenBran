@@ -2,35 +2,38 @@ package Clinic.Clinic.adapter.out;
 
 import Clinic.Clinic.domain.model.ClinicalOrder;
 import Clinic.Clinic.domain.ports.ClinicalOrderPort;
+import Clinic.Clinic.infrastructure.persistence.entities.ClinicalOrderEntity;
+import Clinic.Clinic.infrastructure.persistence.mapper.ClinicalOrderMapper;
+import Clinic.Clinic.infrastructure.persistence.repository.ClinicalOrderRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ClinicalOrderAdapter implements ClinicalOrderPort {
 
-    private final List<ClinicalOrder> database = new ArrayList<>();
+    private final ClinicalOrderRepository clinicalOrderRepository;
+
+    public ClinicalOrderAdapter(ClinicalOrderRepository clinicalOrderRepository) {
+        this.clinicalOrderRepository = clinicalOrderRepository;
+    }
 
     @Override
     public ClinicalOrder findById(String orderNumber) {
-        return database.stream()
-                .filter(order -> order.getOrderNumber().equals(orderNumber))
-                .findFirst()
-                .orElse(null);
+        Optional<ClinicalOrderEntity> entity = clinicalOrderRepository.findByOrderNumber(orderNumber);
+        return entity.map(ClinicalOrderMapper::toDomain).orElse(null);
     }
 
     @Override
     public void save(ClinicalOrder order) {
-        ClinicalOrder existing = findById(order.getOrderNumber());
-        if (existing != null) {
-            database.remove(existing);
-        }
-        database.add(order);
+        ClinicalOrderEntity entity = ClinicalOrderMapper.toEntity(order);
+        ClinicalOrderEntity saved = clinicalOrderRepository.save(entity);
+        order.setId(saved.getId());
     }
 
     @Override
     public void delete(ClinicalOrder order) {
-        database.removeIf(o -> o.getOrderNumber().equals(order.getOrderNumber()));
+        Optional<ClinicalOrderEntity> entity = clinicalOrderRepository.findByOrderNumber(order.getOrderNumber());
+        entity.ifPresent(clinicalOrderRepository::delete);
     }
 }

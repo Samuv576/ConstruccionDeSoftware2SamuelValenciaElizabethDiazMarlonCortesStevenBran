@@ -11,12 +11,19 @@ public class EmergencyContactEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName;
 
     @Column(nullable = false)
-    private String phoneNumber;
+    private String lastName;
 
-    // Add other fields based on EmergencyContact model
+    @Column(nullable = false)
+    private String relationship;
+
+    @Column(nullable = false)
+    private String phone;
+
+    @Column(nullable = false)
+    private String patientDocument;
 
     // Getters and Setters
     public Long getId() {
@@ -27,19 +34,43 @@ public class EmergencyContactEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPatientDocument() {
+        return patientDocument;
+    }
+
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 }

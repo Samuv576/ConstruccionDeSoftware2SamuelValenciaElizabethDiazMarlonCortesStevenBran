@@ -2,35 +2,49 @@ package Clinic.Clinic.adapter.out;
 
 import Clinic.Clinic.domain.model.Appointment;
 import Clinic.Clinic.domain.ports.AppointmentPort;
+import Clinic.Clinic.infrastructure.persistence.entities.AppointmentEntity;
+import Clinic.Clinic.infrastructure.persistence.mapper.AppointmentMapper;
+import Clinic.Clinic.infrastructure.persistence.repository.AppointmentRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class AppointmentAdapter implements AppointmentPort {
 
-    private final List<Appointment> database = new ArrayList<>();
+    private final AppointmentRepository appointmentRepository;
+
+    public AppointmentAdapter(AppointmentRepository appointmentRepository) {
+        this.appointmentRepository = appointmentRepository;
+    }
 
     @Override
     public Appointment findById(Appointment appointment) {
-        return database.stream()
-                .filter(a -> a.getId() == appointment.getId())
-                .findFirst()
-                .orElse(null);
+        Optional<AppointmentEntity> entity = appointmentRepository.findById(appointment.getId());
+        return entity.map(AppointmentMapper::toDomain).orElse(null);
+    }
+
+    @Override
+    public java.util.List<Appointment> findByDoctorDocumentAndDateTimeBetween(
+            String doctorDocument, 
+            java.time.LocalDateTime start, 
+            java.time.LocalDateTime end) {
+        return appointmentRepository
+            .findByDoctorDocumentAndDateTimeBetween(doctorDocument, start, end)
+            .stream()
+            .map(AppointmentMapper::toDomain)
+            .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
     public void save(Appointment appointment) {
-        Appointment existing = findById(appointment);
-        if (existing != null) {
-            database.remove(existing);
-        }
-        database.add(appointment);
+        AppointmentEntity entity = AppointmentMapper.toEntity(appointment);
+        AppointmentEntity saved = appointmentRepository.save(entity);
+        appointment.setId(saved.getId());
     }
 
     @Override
     public void cancel(Appointment appointment) {
-        database.removeIf(a -> a.getId() == appointment.getId());
+        appointmentRepository.deleteById(appointment.getId());
     }
 }

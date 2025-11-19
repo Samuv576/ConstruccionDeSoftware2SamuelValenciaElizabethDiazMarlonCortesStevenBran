@@ -4,6 +4,7 @@ public class UserRequest {
     private String username;
     private String password;
     private String email;
+    private String document;
     private String role;
     private String dateOfBirth;
 
@@ -29,6 +30,14 @@ public class UserRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
     }
 
     public String getRole() {

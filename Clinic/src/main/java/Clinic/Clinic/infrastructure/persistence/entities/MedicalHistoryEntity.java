@@ -1,6 +1,7 @@
 package Clinic.Clinic.infrastructure.persistence.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "medical_histories")
@@ -10,13 +11,14 @@ public class MedicalHistoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String patientName;
+    @Column(unique = true, nullable = false)
+    private String patientDocument;
 
-    @Column(nullable = false)
-    private String historyDetails;
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
 
-    // Add other fields based on MedicalHistory model
+    @Column(name = "general_observations", columnDefinition = "TEXT")
+    private String generalObservations;
 
     // Getters and Setters
     public Long getId() {
@@ -27,19 +29,27 @@ public class MedicalHistoryEntity {
         this.id = id;
     }
 
-    public String getPatientName() {
-        return patientName;
+    public String getPatientDocument() {
+        return patientDocument;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 
-    public String getHistoryDetails() {
-        return historyDetails;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public void setHistoryDetails(String historyDetails) {
-        this.historyDetails = historyDetails;
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getGeneralObservations() {
+        return generalObservations;
+    }
+
+    public void setGeneralObservations(String generalObservations) {
+        this.generalObservations = generalObservations;
     }
 }

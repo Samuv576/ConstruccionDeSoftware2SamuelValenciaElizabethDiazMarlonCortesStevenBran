@@ -4,7 +4,9 @@ import Clinic.Clinic.infrastructure.persistence.entities.InsurancePolicyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface InsurancePolicyRepository extends JpaRepository<InsurancePolicyEntity, Long> {
-    // Add custom query methods if needed
+    Optional<InsurancePolicyEntity> findByPolicyNumber(String policyNumber);
 }

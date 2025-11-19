@@ -1,9 +1,6 @@
 package Clinic.Clinic.infrastructure.persistence.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -12,6 +9,7 @@ import java.time.LocalDate;
 public class UserEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 50, unique = true)
@@ -22,6 +20,9 @@ public class UserEntity {
 
     @Column(nullable = false, length = 100, unique = true)
     private String email;
+
+    @Column(length = 50, unique = true)
+    private String document;
 
     @Column(nullable = false, length = 50)
     private String role;
@@ -59,6 +60,14 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
     }
 
     public String getRole() {

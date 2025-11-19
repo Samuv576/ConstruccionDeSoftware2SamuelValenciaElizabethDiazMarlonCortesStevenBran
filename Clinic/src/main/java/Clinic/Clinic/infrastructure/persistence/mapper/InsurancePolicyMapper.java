@@ -8,11 +8,15 @@ public class InsurancePolicyMapper {
     public static InsurancePolicyEntity toEntity(InsurancePolicy insurancePolicy) {
         if (insurancePolicy == null) return null;
         InsurancePolicyEntity entity = new InsurancePolicyEntity();
-        entity.setId(insurancePolicy.getId());
+        if (insurancePolicy.getId() != null && insurancePolicy.getId() > 0) {
+            entity.setId(insurancePolicy.getId());
+        }
         entity.setPolicyNumber(insurancePolicy.getPolicyNumber());
-        entity.setProvider(insurancePolicy.getCompanyName());
-        // Adjusted mapping to use `companyName` for `provider`
-        // Map other fields
+        entity.setProvider(insurancePolicy.getProvider());
+        entity.setCompanyName(insurancePolicy.getCompanyName());
+        entity.setActive(insurancePolicy.isActive());
+        entity.setEndDate(insurancePolicy.getEndDate());
+        entity.setPatientDocument(insurancePolicy.getPatientDocument());
         return entity;
     }
 
@@ -22,7 +26,10 @@ public class InsurancePolicyMapper {
         insurancePolicy.setId(entity.getId());
         insurancePolicy.setPolicyNumber(entity.getPolicyNumber());
         insurancePolicy.setProvider(entity.getProvider());
-        // Map other fields
+        insurancePolicy.setCompanyName(entity.getCompanyName());
+        insurancePolicy.setActive(entity.isActive());
+        insurancePolicy.setEndDate(entity.getEndDate());
+        insurancePolicy.setPatientDocument(entity.getPatientDocument());
         return insurancePolicy;
     }
 }

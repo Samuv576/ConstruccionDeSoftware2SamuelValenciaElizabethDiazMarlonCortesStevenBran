@@ -24,6 +24,20 @@ public class AppointmentService {
 			throw new Exception("La cita debe tener paciente y doctor asignados");
 		}
 
+		// Validar que el doctor no tenga citas en un rango de 15 minutos
+		if (appointment.getDoctorDocument() != null) {
+			LocalDateTime startRange = appointment.getDateTime().minusMinutes(15);
+			LocalDateTime endRange = appointment.getDateTime().plusMinutes(15);
+			
+			java.util.List<Appointment> conflictingAppointments = 
+				appointmentPort.findByDoctorDocumentAndDateTimeBetween(
+					appointment.getDoctorDocument(), startRange, endRange);
+			
+			if (!conflictingAppointments.isEmpty()) {
+				throw new Exception("El doctor ya tiene una cita programada en este horario (rango de 15 minutos)");
+			}
+		}
+
 		appointmentPort.save(appointment);
 	}
 

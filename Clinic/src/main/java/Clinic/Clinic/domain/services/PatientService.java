@@ -31,7 +31,7 @@ public class PatientService {
 
     public Patient findByDocument(String document) throws Exception {
         Patient temp = new Patient();
-        temp.setId(Long.parseLong(document));
+        temp.setDocument(document);
         Patient found = patientPort.findByDocument(temp);
 
         if (found == null) {
@@ -71,6 +71,10 @@ public class PatientService {
     }
 
     private void validatePatientData(Patient patient) throws Exception {
+        if (patient.getDocument() == null || patient.getDocument().trim().isEmpty()) {
+            throw new Exception("El documento es obligatorio");
+        }
+
         if (patient.getFullName() == null || patient.getFullName().isEmpty()) {
             throw new Exception("El nombre completo es obligatorio");
         }

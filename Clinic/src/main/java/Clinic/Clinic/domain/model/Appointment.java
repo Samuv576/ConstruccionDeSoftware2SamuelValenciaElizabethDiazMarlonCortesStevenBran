@@ -8,6 +8,8 @@ public class Appointment {
     private User doctor;
     private LocalDateTime dateTime;
     private String reason;
+    private String patientDocument;
+    private String doctorDocument;
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
@@ -23,5 +25,11 @@ public class Appointment {
 
     public String getReason() { return reason; }
     public void setReason(String reason) { this.reason = reason; }
+
+    public String getPatientDocument() { return patientDocument; }
+    public void setPatientDocument(String patientDocument) { this.patientDocument = patientDocument; }
+
+    public String getDoctorDocument() { return doctorDocument; }
+    public void setDoctorDocument(String doctorDocument) { this.doctorDocument = doctorDocument; }
 }
 

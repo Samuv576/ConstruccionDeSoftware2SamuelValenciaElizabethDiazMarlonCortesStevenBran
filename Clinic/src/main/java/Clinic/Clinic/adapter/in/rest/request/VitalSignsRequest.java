@@ -1,18 +1,20 @@
 package Clinic.Clinic.adapter.in.rest.request;
 
 public class VitalSignsRequest {
-    private double bloodPressure;
+    private String bloodPressure;
     private double temperature;
     private int pulse;
+    private int heartRate;
     private double oxygenLevel;
+    private double weight;
     private String patientDocument;
     private String vitalSignsDetails;
 
-    public double getBloodPressure() {
+    public String getBloodPressure() {
         return bloodPressure;
     }
 
-    public void setBloodPressure(double bloodPressure) {
+    public void setBloodPressure(String bloodPressure) {
         this.bloodPressure = bloodPressure;
     }
 
@@ -32,12 +34,28 @@ public class VitalSignsRequest {
         this.pulse = pulse;
     }
 
+    public int getHeartRate() {
+        return heartRate;
+    }
+
+    public void setHeartRate(int heartRate) {
+        this.heartRate = heartRate;
+    }
+
     public double getOxygenLevel() {
         return oxygenLevel;
     }
 
     public void setOxygenLevel(double oxygenLevel) {
         this.oxygenLevel = oxygenLevel;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public String getPatientDocument() {

@@ -8,10 +8,14 @@ public class EmergencyContactMapper {
     public static EmergencyContactEntity toEntity(EmergencyContact emergencyContact) {
         if (emergencyContact == null) return null;
         EmergencyContactEntity entity = new EmergencyContactEntity();
-        entity.setId(emergencyContact.getId());
-        entity.setName(emergencyContact.getFirstName() + " " + emergencyContact.getLastName());
-        entity.setPhoneNumber(emergencyContact.getPhone());
-        // Removed direct mapping for non-existent fields
+        if (emergencyContact.getId() != null && emergencyContact.getId() > 0) {
+            entity.setId(emergencyContact.getId());
+        }
+        entity.setFirstName(emergencyContact.getFirstName());
+        entity.setLastName(emergencyContact.getLastName());
+        entity.setRelationship(emergencyContact.getRelationship());
+        entity.setPhone(emergencyContact.getPhone());
+        entity.setPatientDocument(emergencyContact.getPatientDocument());
         return entity;
     }
 
@@ -19,10 +23,11 @@ public class EmergencyContactMapper {
         if (entity == null) return null;
         EmergencyContact emergencyContact = new EmergencyContact();
         emergencyContact.setId(entity.getId());
-        emergencyContact.setPhone(entity.getPhoneNumber());
-        emergencyContact.setFirstName(entity.getName().split(" ")[0]);
-        emergencyContact.setLastName(entity.getName().substring(entity.getName().indexOf(" ") + 1));
-        // Map other fields
+        emergencyContact.setFirstName(entity.getFirstName());
+        emergencyContact.setLastName(entity.getLastName());
+        emergencyContact.setRelationship(entity.getRelationship());
+        emergencyContact.setPhone(entity.getPhone());
+        emergencyContact.setPatientDocument(entity.getPatientDocument());
         return emergencyContact;
     }
 }

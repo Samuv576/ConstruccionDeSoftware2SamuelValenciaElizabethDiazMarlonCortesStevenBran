@@ -24,11 +24,31 @@ public class HumanResourcesController {
             user.setUsername(request.getUsername());
             user.setPassword(request.getPassword());
             user.setEmail(request.getEmail());
-            // Set role and dateOfBirth with proper parsing if needed
             
-            // For now, using null for creator - this should be replaced with actual authenticated user
-            userUseCase.createUser(user, null);
-            return ResponseEntity.status(HttpStatus.CREATED).body(user);
+            // Set document
+            if (request.getDocument() != null) {
+                user.setDocument(request.getDocument());
+            }
+            
+            // Parse dateOfBirth
+            if (request.getDateOfBirth() != null) {
+                user.setDateOfBirth(java.time.LocalDate.parse(request.getDateOfBirth()));
+            }
+            
+            // Parse role
+            if (request.getRole() != null) {
+                user.setRole(Clinic.Clinic.domain.model.enums.Role.valueOf(request.getRole()));
+            }
+            
+            // Create a system admin as creator for validation
+            User creator = new User();
+            creator.setRole(Clinic.Clinic.domain.model.enums.Role.ADMIN);
+            
+            userUseCase.createUser(user, creator);
+            
+            // Fetch the saved user to get the generated ID
+            User savedUser = userUseCase.findUserByUsername(user.getUsername());
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
 
         } catch (InputsException ie) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ie.getMessage());

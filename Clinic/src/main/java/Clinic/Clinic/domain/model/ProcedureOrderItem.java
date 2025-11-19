@@ -5,7 +5,7 @@ public class ProcedureOrderItem {
     private int quantity;
     private String frequency;
     private boolean requiresSpecialist;
-    private String specialistTypeId;
+    private Integer specialistTypeId;
     private String itemNumber;
 
     public String getId() { return id; }
@@ -20,8 +20,8 @@ public class ProcedureOrderItem {
     public boolean isRequiresSpecialist() { return requiresSpecialist; }
     public void setRequiresSpecialist(boolean requiresSpecialist) { this.requiresSpecialist = requiresSpecialist; }
 
-    public String getSpecialistTypeId() { return specialistTypeId; }
-    public void setSpecialistTypeId(String specialistTypeId) { this.specialistTypeId = specialistTypeId; }
+    public Integer getSpecialistTypeId() { return specialistTypeId; }
+    public void setSpecialistTypeId(Integer specialistTypeId) { this.specialistTypeId = specialistTypeId; }
 
     public String getItemNumber() { return itemNumber; }
     public void setItemNumber(String itemNumber) { this.itemNumber = itemNumber; }

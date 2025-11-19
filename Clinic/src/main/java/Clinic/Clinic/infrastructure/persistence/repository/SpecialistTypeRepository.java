@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SpecialistTypeRepository extends JpaRepository<SpecialistTypeEntity, Long> {
-    // Custom query methods if needed
+    java.util.Optional<SpecialistTypeEntity> findByName(String name);
 }

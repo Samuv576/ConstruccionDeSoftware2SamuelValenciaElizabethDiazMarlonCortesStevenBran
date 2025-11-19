@@ -13,10 +13,20 @@ public class PatientEntity {
     @Column(nullable = false, name = "full_name")
     private String fullName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String document;
 
-    // Add other fields based on Patient model
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "date_of_birth")
+    private java.time.LocalDate dateOfBirth;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "address")
+    private String address;
 
     // Getters and Setters
     public Long getId() {
@@ -41,5 +51,37 @@ public class PatientEntity {
 
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public java.time.LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(java.time.LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

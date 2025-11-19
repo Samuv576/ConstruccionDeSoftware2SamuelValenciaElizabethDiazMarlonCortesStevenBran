@@ -9,6 +9,7 @@ public class InsurancePolicy {
     private boolean active;
     private LocalDate endDate;
     private String provider;
+    private String patientDocument;
 
     public Long getId() {
         return id;
@@ -36,5 +37,13 @@ public class InsurancePolicy {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public String getPatientDocument() {
+        return patientDocument;
+    }
+
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 }

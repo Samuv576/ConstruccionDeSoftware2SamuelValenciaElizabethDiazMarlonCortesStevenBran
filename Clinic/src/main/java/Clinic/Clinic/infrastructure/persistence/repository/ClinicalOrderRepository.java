@@ -4,7 +4,9 @@ import Clinic.Clinic.infrastructure.persistence.entities.ClinicalOrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ClinicalOrderRepository extends JpaRepository<ClinicalOrderEntity, Long> {
-    // Add custom query methods if needed
+    Optional<ClinicalOrderEntity> findByOrderNumber(String orderNumber);
 }

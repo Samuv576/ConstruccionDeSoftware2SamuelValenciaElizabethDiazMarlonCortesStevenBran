@@ -2,41 +2,39 @@ package Clinic.Clinic.adapter.out;
 
 import Clinic.Clinic.domain.model.EmergencyContact;
 import Clinic.Clinic.domain.ports.EmergencyContactPort;
+import Clinic.Clinic.infrastructure.persistence.entities.EmergencyContactEntity;
+import Clinic.Clinic.infrastructure.persistence.mapper.EmergencyContactMapper;
+import Clinic.Clinic.infrastructure.persistence.repository.EmergencyContactRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class EmergencyContactAdapter implements EmergencyContactPort {
 
+    private final EmergencyContactRepository emergencyContactRepository;
 
-    private final Map<String, EmergencyContact> database = new HashMap<>();
+    public EmergencyContactAdapter(EmergencyContactRepository emergencyContactRepository) {
+        this.emergencyContactRepository = emergencyContactRepository;
+    }
 
     @Override
     public EmergencyContact findByPatientId(String patientDocument) {
-        return database.get(patientDocument);
+        Optional<EmergencyContactEntity> entity = emergencyContactRepository.findByPatientDocument(patientDocument);
+        return entity.map(EmergencyContactMapper::toDomain).orElse(null);
     }
 
     @Override
     public void save(EmergencyContact contact) {
-
-
-
-        String key = extractPatientDocument(contact);
-        database.put(key, contact);
+        EmergencyContactEntity entity = EmergencyContactMapper.toEntity(contact);
+        EmergencyContactEntity saved = emergencyContactRepository.save(entity);
+        contact.setId(saved.getId());
     }
 
     @Override
     public void delete(EmergencyContact contact) {
-        String key = extractPatientDocument(contact);
-        database.remove(key);
-    }
-
-
-    private String extractPatientDocument(EmergencyContact contact) {
-
-
-        return contact.getPhone();
+        if (contact.getId() != null) {
+            emergencyContactRepository.deleteById(contact.getId());
+        }
     }
 }

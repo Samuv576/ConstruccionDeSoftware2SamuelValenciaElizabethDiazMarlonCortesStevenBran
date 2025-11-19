@@ -1,19 +1,22 @@
 package Clinic.Clinic.adapter.in.rest.request;
 
 public class InvoiceRequest {
-    private long patientId;
+    private String patientDocument;
     private Long insurancePolicyId;
     private double amount;
     private String description;
     private String dateTime;
     private String invoiceNumber;
+    private String status;
+    private String issueDate;
+    private String dueDate;
 
-    public long getPatientId() {
-        return patientId;
+    public String getPatientDocument() {
+        return patientDocument;
     }
 
-    public void setPatientId(long patientId) {
-        this.patientId = patientId;
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 
     public Long getInsurancePolicyId() {
@@ -54,5 +57,29 @@ public class InvoiceRequest {
 
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(String issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 }

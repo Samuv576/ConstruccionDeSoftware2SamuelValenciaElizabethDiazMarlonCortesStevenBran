@@ -8,10 +8,16 @@ public class PatientMapper {
     public static PatientEntity toEntity(Patient patient) {
         if (patient == null) return null;
         PatientEntity entity = new PatientEntity();
-        entity.setId(patient.getId());
+        // Don't set ID for new entities - let Hibernate generate it
+        if (patient.getId() > 0) {
+            entity.setId(patient.getId());
+        }
         entity.setFullName(patient.getFullName());
         entity.setDocument(patient.getDocument());
-        // Map other fields
+        entity.setGender(patient.getGender() != null ? patient.getGender().name() : null);
+        entity.setDateOfBirth(patient.getDateOfBirth());
+        entity.setPhone(patient.getPhone());
+        entity.setAddress(patient.getAddress());
         return entity;
     }
 
@@ -21,7 +27,12 @@ public class PatientMapper {
         patient.setId(entity.getId());
         patient.setFullName(entity.getFullName());
         patient.setDocument(entity.getDocument());
-        // Map other fields
+        if (entity.getGender() != null) {
+            patient.setGender(Clinic.Clinic.domain.model.enums.Gender.valueOf(entity.getGender()));
+        }
+        patient.setDateOfBirth(entity.getDateOfBirth());
+        patient.setPhone(entity.getPhone());
+        patient.setAddress(entity.getAddress());
         return patient;
     }
 }

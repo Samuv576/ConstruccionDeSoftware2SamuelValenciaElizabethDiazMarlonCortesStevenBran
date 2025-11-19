@@ -1,15 +1,10 @@
 package Clinic.Clinic.application.usecases;
 
 import Clinic.Clinic.domain.model.MedicalHistory;
-import Clinic.Clinic.domain.model.MedicalHistoryEntry;
 import Clinic.Clinic.domain.services.MedicalHistoryService;
-
-import java.time.LocalDate;
-import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
-
 public class MedicalHistoryUseCase {
 
     private final MedicalHistoryService medicalHistoryService;
@@ -22,15 +17,11 @@ public class MedicalHistoryUseCase {
         medicalHistoryService.create(history);
     }
 
-    public void addEntryToHistory(String patientDocument, LocalDate date, MedicalHistoryEntry entry) throws Exception {
-        medicalHistoryService.addEntry(patientDocument, date, entry);
+    public MedicalHistory getHistory(String patientDocument) throws Exception {
+        return medicalHistoryService.getHistory(patientDocument);
     }
 
-    public Map<LocalDate, MedicalHistoryEntry> getHistoryEntries(String patientDocument) throws Exception {
-        return medicalHistoryService.getEntries(patientDocument);
-    }
-
-    public void deleteEntryFromHistory(String patientDocument, LocalDate date) throws Exception {
-        medicalHistoryService.deleteEntry(patientDocument, date);
+    public void deleteMedicalHistory(MedicalHistory history) throws Exception {
+        medicalHistoryService.delete(history);
     }
 }

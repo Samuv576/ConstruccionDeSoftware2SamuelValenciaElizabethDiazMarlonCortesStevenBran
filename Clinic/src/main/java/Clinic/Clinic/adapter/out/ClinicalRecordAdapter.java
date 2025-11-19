@@ -2,56 +2,39 @@ package Clinic.Clinic.adapter.out;
 
 import Clinic.Clinic.domain.model.ClinicalRecord;
 import Clinic.Clinic.domain.ports.ClinicalRecordPort;
+import Clinic.Clinic.infrastructure.persistence.entities.ClinicalRecordEntity;
+import Clinic.Clinic.infrastructure.persistence.mapper.ClinicalRecordMapper;
+import Clinic.Clinic.infrastructure.persistence.repository.ClinicalRecordRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ClinicalRecordAdapter implements ClinicalRecordPort {
 
-    private final List<ClinicalRecordWrapper> database = new ArrayList<>();
+    private final ClinicalRecordRepository clinicalRecordRepository;
+
+    public ClinicalRecordAdapter(ClinicalRecordRepository clinicalRecordRepository) {
+        this.clinicalRecordRepository = clinicalRecordRepository;
+    }
 
     @Override
     public ClinicalRecord findByPatientId(String patientDocument) {
-        return database.stream()
-                .filter(wrapper -> wrapper.patientDocument.equals(patientDocument))
-                .map(wrapper -> wrapper.record)
-                .findFirst()
-                .orElse(null);
+        Optional<ClinicalRecordEntity> entity = clinicalRecordRepository.findByRecordDetails(patientDocument);
+        return entity.map(ClinicalRecordMapper::toDomain).orElse(null);
     }
 
     @Override
     public void save(ClinicalRecord record) {
-        String patientDocument = extractPatientDocument(record);
-        ClinicalRecord existing = findByPatientId(patientDocument);
-        if (existing != null) {
-            database.removeIf(wrapper -> wrapper.patientDocument.equals(patientDocument));
-        }
-        database.add(new ClinicalRecordWrapper(patientDocument, record));
+        ClinicalRecordEntity entity = ClinicalRecordMapper.toEntity(record);
+        ClinicalRecordEntity saved = clinicalRecordRepository.save(entity);
+        record.setId(saved.getId());
     }
 
     @Override
     public void delete(ClinicalRecord record) {
-        String patientDocument = extractPatientDocument(record);
-        database.removeIf(wrapper -> wrapper.patientDocument.equals(patientDocument));
-    }
-
-
-    private String extractPatientDocument(ClinicalRecord record) {
-
-
-        return record.getClinicalOrder() != null ? record.getClinicalOrder().getOrderNumber() : "unknown";
-    }
-
-
-    private static class ClinicalRecordWrapper {
-        String patientDocument;
-        ClinicalRecord record;
-
-        ClinicalRecordWrapper(String patientDocument, ClinicalRecord record) {
-            this.patientDocument = patientDocument;
-            this.record = record;
+        if (record.getId() != null) {
+            clinicalRecordRepository.deleteById(record.getId());
         }
     }
 }

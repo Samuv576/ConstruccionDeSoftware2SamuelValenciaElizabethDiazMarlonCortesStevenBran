@@ -20,19 +20,25 @@ public class NurseController {
     @Autowired
     private MedicalNoteUseCase medicalNoteUseCase;
 
+    @Autowired
+    private PatientUseCase patientUseCase;
+
+    @Autowired
+    private UserUseCase userUseCase;
+
     // VitalSigns endpoints
     @PostMapping("/vital-signs/{patientDocument}")
     public ResponseEntity<?> createVitalSigns(@PathVariable String patientDocument, @RequestBody VitalSignsRequest request) {
         try {
-            VitalSigns vitalSigns = new VitalSigns();
-            vitalSigns.setBloodPressure(request.getBloodPressure());
-            vitalSigns.setTemperature(request.getTemperature());
-            vitalSigns.setPulse(request.getPulse());
-            vitalSigns.setOxygenLevel(request.getOxygenLevel());
-            vitalSigns.setPatientDocument(request.getPatientDocument());
-            vitalSigns.setVitalSignsDetails(request.getVitalSignsDetails());
-
-            vitalSignsUseCase.createVitalSigns(vitalSigns, patientDocument);
+        VitalSigns vitalSigns = new VitalSigns();
+        vitalSigns.setBloodPressure(request.getBloodPressure());
+        vitalSigns.setTemperature(request.getTemperature());
+        vitalSigns.setPulse(request.getPulse());
+        vitalSigns.setHeartRate(request.getHeartRate());
+        vitalSigns.setOxygenLevel(request.getOxygenLevel());
+        vitalSigns.setWeight(request.getWeight());
+        vitalSigns.setPatientDocument(request.getPatientDocument());
+        vitalSigns.setVitalSignsDetails(request.getVitalSignsDetails());            vitalSignsUseCase.createVitalSigns(vitalSigns, patientDocument);
             return ResponseEntity.status(HttpStatus.CREATED).body(vitalSigns);
 
         } catch (InputsException ie) {
@@ -58,8 +64,19 @@ public class NurseController {
     public ResponseEntity<?> createMedicalNote(@RequestBody MedicalNoteRequest request) {
         try {
             MedicalNote note = new MedicalNote();
-            note.setNote(request.getNote());
-            // Set patient, doctor, dateTime with proper parsing if needed
+            note.setPatientDocument(request.getPatientDocument());
+            note.setDoctorDocument(request.getDoctorDocument());
+            note.setConsultationDate(request.getConsultationDate());
+            note.setConsultationReason(request.getConsultationReason());
+            note.setSymptoms(request.getSymptoms());
+            note.setDiagnosis(request.getDiagnosis());
+            note.setNotes(request.getNotes());
+
+            // Fetch patient and doctor
+            Patient patient = patientUseCase.findPatientByDocument(request.getPatientDocument());
+            User doctor = userUseCase.findUserByDocument(request.getDoctorDocument());
+            note.setPatient(patient);
+            note.setDoctor(doctor);
 
             medicalNoteUseCase.createMedicalNote(note);
             return ResponseEntity.status(HttpStatus.CREATED).body(note);

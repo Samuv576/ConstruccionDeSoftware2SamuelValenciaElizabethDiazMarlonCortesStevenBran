@@ -13,6 +13,9 @@ public class ClinicalOrderEntity {
     @Column(nullable = false)
     private String orderDetails;
 
+    @Column(unique = true)
+    private String orderNumber;
+
     // Add other fields based on ClinicalOrder model
 
     // Getters and Setters
@@ -30,5 +33,13 @@ public class ClinicalOrderEntity {
 
     public void setOrderDetails(String orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }

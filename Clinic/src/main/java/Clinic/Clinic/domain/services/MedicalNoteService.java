@@ -23,12 +23,12 @@ public class MedicalNoteService {
             throw new Exception("La nota médica debe tener paciente y médico asignados");
         }
 
-        if (note.getNote() == null || note.getNote().isEmpty()) {
-            throw new Exception("El contenido de la nota médica no puede estar vacío");
+        if (note.getConsultationReason() == null || note.getConsultationReason().isEmpty()) {
+            throw new Exception("El motivo de consulta no puede estar vacío");
         }
 
-        if (note.getDateTime() == null) {
-            note.setDateTime(LocalDateTime.now());
+        if (note.getConsultationDate() == null) {
+            note.setConsultationDate(LocalDateTime.now());
         }
 
         medicalNotePort.save(note);
@@ -66,12 +66,12 @@ public class MedicalNoteService {
             throw new Exception("No se encontró la nota médica para actualizar");
         }
 
-        if (note.getNote() == null || note.getNote().isEmpty()) {
-            throw new Exception("La nota médica no puede estar vacía");
+        if (note.getNotes() == null || note.getNotes().isEmpty()) {
+            throw new Exception("Las observaciones no pueden estar vacías");
         }
 
-        existing.setNote(note.getNote());
-        existing.setDateTime(LocalDateTime.now());
+        existing.setNotes(note.getNotes());
+        existing.setConsultationDate(LocalDateTime.now());
 
         medicalNotePort.save(existing);
     }

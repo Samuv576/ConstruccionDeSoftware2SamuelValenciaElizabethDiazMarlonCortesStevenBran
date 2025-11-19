@@ -15,10 +15,14 @@ public final class UserMapper {
         }
 
         UserEntity entity = new UserEntity();
-        entity.setId(user.getId());
+        // Don't set ID for new entities
+        if (user.getId() > 0) {
+            entity.setId(user.getId());
+        }
         entity.setUserName(user.getUsername());
         entity.setPassword(user.getPassword());
         entity.setEmail(user.getEmail());
+        entity.setDocument(user.getDocument());
         if (user.getRole() != null) {
             entity.setRole(user.getRole().name());
         }
@@ -36,6 +40,7 @@ public final class UserMapper {
         user.setUsername(entity.getUserName());
         user.setPassword(entity.getPassword());
         user.setEmail(entity.getEmail());
+        user.setDocument(entity.getDocument());
         if (entity.getRole() != null) {
             user.setRole(Role.valueOf(entity.getRole()));
         }

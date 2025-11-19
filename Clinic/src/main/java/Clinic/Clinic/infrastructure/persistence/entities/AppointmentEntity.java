@@ -13,13 +13,13 @@ public class AppointmentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private PatientEntity patient;
+    @Column(name = "patient_document")
+    private String patientDocument;
 
-    @ManyToOne
-    private UserEntity doctor;
+    @Column(name = "doctor_document")
+    private String doctorDocument;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "date_time")
     private LocalDateTime dateTime;
 
     @Column(nullable = false)
@@ -34,20 +34,20 @@ public class AppointmentEntity {
         this.id = id;
     }
 
-    public PatientEntity getPatient() {
-        return patient;
+    public String getPatientDocument() {
+        return patientDocument;
     }
 
-    public void setPatient(PatientEntity patient) {
-        this.patient = patient;
+    public void setPatientDocument(String patientDocument) {
+        this.patientDocument = patientDocument;
     }
 
-    public UserEntity getDoctor() {
-        return doctor;
+    public String getDoctorDocument() {
+        return doctorDocument;
     }
 
-    public void setDoctor(UserEntity doctor) {
-        this.doctor = doctor;
+    public void setDoctorDocument(String doctorDocument) {
+        this.doctorDocument = doctorDocument;
     }
 
     public LocalDateTime getDateTime() {

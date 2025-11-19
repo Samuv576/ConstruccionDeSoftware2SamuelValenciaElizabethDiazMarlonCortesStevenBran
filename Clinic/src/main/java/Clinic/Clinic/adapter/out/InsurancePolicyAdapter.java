@@ -2,29 +2,38 @@ package Clinic.Clinic.adapter.out;
 
 import Clinic.Clinic.domain.model.InsurancePolicy;
 import Clinic.Clinic.domain.ports.InsurancePolicyPort;
+import Clinic.Clinic.infrastructure.persistence.entities.InsurancePolicyEntity;
+import Clinic.Clinic.infrastructure.persistence.mapper.InsurancePolicyMapper;
+import Clinic.Clinic.infrastructure.persistence.repository.InsurancePolicyRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class InsurancePolicyAdapter implements InsurancePolicyPort {
 
+    private final InsurancePolicyRepository insurancePolicyRepository;
 
-    private final Map<String, InsurancePolicy> database = new HashMap<>();
+    public InsurancePolicyAdapter(InsurancePolicyRepository insurancePolicyRepository) {
+        this.insurancePolicyRepository = insurancePolicyRepository;
+    }
 
     @Override
     public InsurancePolicy findByPolicyNumber(String policyNumber) {
-        return database.get(policyNumber);
+        Optional<InsurancePolicyEntity> entity = insurancePolicyRepository.findByPolicyNumber(policyNumber);
+        return entity.map(InsurancePolicyMapper::toDomain).orElse(null);
     }
 
     @Override
     public void save(InsurancePolicy policy) {
-        database.put(policy.getPolicyNumber(), policy);
+        InsurancePolicyEntity entity = InsurancePolicyMapper.toEntity(policy);
+        InsurancePolicyEntity saved = insurancePolicyRepository.save(entity);
+        policy.setId(saved.getId());
     }
 
     @Override
     public void delete(InsurancePolicy policy) {
-        database.remove(policy.getPolicyNumber());
+        Optional<InsurancePolicyEntity> entity = insurancePolicyRepository.findByPolicyNumber(policy.getPolicyNumber());
+        entity.ifPresent(insurancePolicyRepository::delete);
     }
 }

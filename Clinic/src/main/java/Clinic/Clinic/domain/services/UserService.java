@@ -66,7 +66,7 @@ public class UserService {
 
 	public User findByDocument(String document) throws Exception {
 		User temp = new User();
-		temp.setId(Long.parseLong(document));
+		temp.setDocument(document);
 
 		User found = userPort.findByDocument(temp);
 		if (found == null) {
@@ -101,6 +101,10 @@ public class UserService {
 	}
 
 	private void validateUserData(User user) throws Exception {
+		if (user.getDocument() == null || user.getDocument().trim().isEmpty()) {
+			throw new Exception("El documento es obligatorio");
+		}
+
 		if (user.getUsername() == null || !user.getUsername().matches("^[a-zA-Z0-9]{1,15}$")) {
 			throw new Exception("El nombre de usuario debe tener máximo 15 caracteres, solo letras y números");
 		}

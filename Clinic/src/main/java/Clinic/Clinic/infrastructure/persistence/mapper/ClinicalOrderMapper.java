@@ -8,8 +8,11 @@ public class ClinicalOrderMapper {
     public static ClinicalOrderEntity toEntity(ClinicalOrder clinicalOrder) {
         if (clinicalOrder == null) return null;
         ClinicalOrderEntity entity = new ClinicalOrderEntity();
-        entity.setId(clinicalOrder.getId());
+        if (clinicalOrder.getId() != null && clinicalOrder.getId() > 0) {
+            entity.setId(clinicalOrder.getId());
+        }
         entity.setOrderDetails(clinicalOrder.getOrderDetails());
+        entity.setOrderNumber(clinicalOrder.getOrderNumber());
         // Map other fields
         return entity;
     }
@@ -19,6 +22,7 @@ public class ClinicalOrderMapper {
         ClinicalOrder clinicalOrder = new ClinicalOrder();
         clinicalOrder.setId(entity.getId());
         clinicalOrder.setOrderDetails(entity.getOrderDetails());
+        clinicalOrder.setOrderNumber(entity.getOrderNumber());
         // Map other fields
         return clinicalOrder;
     }

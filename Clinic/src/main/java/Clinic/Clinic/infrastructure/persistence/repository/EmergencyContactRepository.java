@@ -4,7 +4,10 @@ import Clinic.Clinic.infrastructure.persistence.entities.EmergencyContactEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface EmergencyContactRepository extends JpaRepository<EmergencyContactEntity, Long> {
-    // Add custom query methods if needed
+    Optional<EmergencyContactEntity> findByPhone(String phone);
+    Optional<EmergencyContactEntity> findByPatientDocument(String patientDocument);
 }
